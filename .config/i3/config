@@ -1,0 +1,331 @@
+set $mod Mod4
+
+new_window pixel 2
+new_float normal
+
+hide_edge_borders none
+
+# change borders
+bindsym $mod+u border none
+bindsym $mod+y border pixel 1
+bindsym $mod+n border normal
+
+# Font for window titles
+font xft:URWGothic-Book 11
+
+floating_modifier $mod
+
+bindsym $mod+Return exec termite
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+d exec --no-startup-id rofi -show run -modi run -location 1 -width 100 \
+		 -lines 3 -line-margin 0 -line-padding 1 \
+		 -separator-style none -font "mono 10" -columns 9 -bw 0 \
+
+# sound
+exec --no-startup-id volumeicon
+bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
+#exec --no-startup-id pulseaudio
+exec --no-startup-id pa-applet
+
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'Brightness up'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'Brightness down'"
+
+bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
+#bindsym $mod+F2 exec chromium
+bindsym $mod+F1 exec thunar
+bindsym $mod+F2 exec firefox
+bindsym $mod+F3 exec spotify
+bindsym $mod+grave exec termite -e gotop
+
+focus_follows_mouse yes
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+workspace_auto_back_and_forth yes
+bindsym $mod+b workspace back_and_forth
+bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+
+# split orientation
+bindsym $mod+h split h;exec notify-send 'tile horizontally'
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+q split toggle
+
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+Shift+space floating toggle resize set 896 504
+
+bindsym $mod+space focus mode_toggle
+
+# toggle sticky
+bindsym $mod+Shift+s sticky toggle
+
+bindsym $mod+a focus parent
+
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+
+# Workspaces
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+
+bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8
+
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+
+# Open applications on specific workspaces
+assign [class="Chromium"] $ws1
+assign [class='google-chrome-stable'] $ws1
+assign [class="Firefox"] $ws1
+for_window [class="Spotify"] move to workspace $ws3
+assign [class="ckb-next"] $ws4
+
+# Open specific applications in floating mode
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="VLC"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Thunar"] floating enable
+
+bindsym $mod+Shift+c reload
+
+bindsym $mod+Shift+r restart
+
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# lock the screen
+bindsym $mod+9 exec --no-startup-id blurlock
+
+bindsym $mod+0 mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# Autostart applications
+exec --no-startup-id nm-applet
+exec_always --no-startup-id numlockx on 
+# exec --no-startup-id blueman-applet
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec --no-startup-id display-visor -f -l
+
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+# i3bar + bumblebee-status 
+bar {   
+	status_command bumblebee-status -m caffeine memory battery spotify date time pasink pasource -p time.format="%H:%M:%S" date.format="%a, %b %d %Y" -t iceberg
+	i3bar_command i3bar
+	#status_command i3status
+	position top
+
+	tray_output eDP-1
+
+	font pango:DejaVu Sans Mono, FontAwesome 9
+	strip_workspace_numbers yes 
+
+        colors {
+
+	background #161821
+	statusline #c6c9d1
+	separator  #c6c9d1
+
+#                           border  backgr. text
+	focused_workspace   #c6c9d1 #d2d4de #0f1117
+	active_workspace    #b4be82 #b1b2c0 #0f1117
+	inactive_workspace  #161821 #0f1117 #d2d4de
+	urgent_workspace    #b4be82 #b4be82 #161821
+  
+    }
+}
+
+bindsym $mod+m bar mode toggle
+
+# Theme colors
+# class                   border  backgr. text    indic.   child_border
+  client.focused          #b1b2c0 #b1b2c0 #0f1117 #FDF6E3 
+  client.focused_inactive #0f1117 #0f1117 #ffffff #454948
+  client.unfocused        #0f1117 #0f1117 #ffffff #454948
+  client.urgent           #b4be82 #b4be82 #0f1117 #268BD2
+  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+
+  client.background       #161821
+
+# Set inner/outer gaps
+gaps inner 4
+gaps outer -2
+
+smart_gaps on
+
+smart_borders on
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# user customization
+	# enable mulitple monitors and set wallpaper
+	exec bash ~/.screenlayout/dualscreen.sh && exec feh --randomize --bg-fill ~/.wallpaper/*
+	# wallpaper
+	#exec feh --randomize --bg-fill ~/.wallpaper/*
+	# enable volume keys
+	bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+	bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+	bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+	# Media player controls
+	bindsym XF86AudioPlay exec playerctl play
+	bindsym XF86AudioPause exec playerctl pause
+	bindsym XF86AudioNext exec playerctl next
+	bindsym XF86AudioPrev exec playerctl previous 
+	# keyboard layouts
+	exec "setxkbmap -layout us,ru"
+	exec "setxkbmap -option 'grp:alt_shift_toggle'"
+# autostart
+	# redshift
+	exec redshift-gtk -l 50.5:30.4 -t 6500:3000
+	# compton
+	exec --no-startup-id compton --config ~/.config/compton/compton.conf --vsync opengl 
+# screenshots
+        # Multi-screen screenshots with scrot
+	bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+
+	# OSX-like area selection screenshots
+	bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
