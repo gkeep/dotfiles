@@ -149,7 +149,7 @@ for_window [class="VLC"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="Thunar"] floating enable
+#for_window [class="Thunar"] floating enable
 
 bindsym $mod+Shift+c reload
 
@@ -302,10 +302,8 @@ mode "$mode_gaps_outer" {
 }
 
 # user customization
-	# enable mulitple monitors and set wallpaper
-	exec bash ~/.screenlayout/dualscreen.sh && exec feh --randomize --bg-fill ~/.wallpaper/*
-	# wallpaper
-	#exec feh --randomize --bg-fill ~/.wallpaper/*
+	# python script to exec screen config script and exec feh
+	exec python /home/gkeep/scripts/screenconfigurator.py
 	# enable volume keys
 	bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 	bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
