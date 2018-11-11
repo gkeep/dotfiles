@@ -303,7 +303,7 @@ mode "$mode_gaps_outer" {
 
 # user customization
 	# python script to exec screen config script and exec feh
-	exec python /home/gkeep/scripts/screenconfigurator.py
+	exec python /home/gkeep/scripts/dualscreenfixer.py
 	# enable volume keys
 	bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 	bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
