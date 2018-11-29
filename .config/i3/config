@@ -29,14 +29,15 @@ bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
 #exec --no-startup-id pulseaudio
 exec --no-startup-id pa-applet
 
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'Brightness up'"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'Brightness down'"
+bindsym Ctrl+Shift+plus exec "xbacklight -inc 10; notify-send 'Brightness up'"
+bindsym Ctrl+Shift+minus exec "xbacklight -dec 10; notify-send 'Brightness down'"
 
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 #bindsym $mod+F2 exec chromium
-bindsym $mod+F1 exec thunar
+bindsym $mod+F1 exec nautilus
 bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec spotify
+bindsym $mod+F4 exec code
 bindsym $mod+grave exec termite -e gotop
 
 focus_follows_mouse yes
@@ -83,20 +84,14 @@ bindsym $mod+Shift+s sticky toggle
 
 bindsym $mod+a focus parent
 
-bindsym $mod+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
-
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # Workspaces
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
 set $ws5 5
 set $ws6 6
 set $ws7 7
@@ -134,7 +129,8 @@ assign [class="Chromium"] $ws1
 assign [class='google-chrome-stable'] $ws1
 assign [class="Firefox"] $ws1
 for_window [class="Spotify"] move to workspace $ws3
-assign [class="ckb-next"] $ws4
+assign [class="ckb-next"] $ws6
+assign [class="code"] $ws4
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -195,10 +191,9 @@ mode "resize" {
 exec --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on 
 # exec --no-startup-id blueman-applet
-exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 20 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-exec --no-startup-id display-visor -f -l
 
 set_from_resource $term_background background
 set_from_resource $term_foreground foreground
@@ -220,9 +215,8 @@ set_from_resource $term_color15    color15
 
 # i3bar + bumblebee-status 
 bar {   
-	status_command bumblebee-status -m caffeine memory battery spotify date time pasink pasource -p time.format="%H:%M:%S" date.format="%a, %b %d %Y" -t iceberg
+	status_command bumblebee-status -m memory battery spotify xrandr date time pasink -p time.format="%H:%M:%S" date.format="%a, %b %d %Y" -t iceberg
 	i3bar_command i3bar
-	#status_command i3status
 	position top
 
 	tray_output eDP-1
@@ -305,25 +299,28 @@ mode "$mode_gaps_outer" {
 	# python script to exec screen config script and exec feh
 	exec python /home/gkeep/scripts/dualscreenfixer.py
 	# enable volume keys
-	bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-	bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
-	bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+	bindsym $mod+Shift+plus exec --no-startup-id pactl set-sink-volume 0 +5%
+	bindsym $mod+Shift+minus exec --no-startup-id pactl set-sink-volume 0 -5%
+	bindsym $mod+Shift+0 exec --no-startup-id pactl set-sink-mute 0 toggle
 	# Media player controls
 	bindsym XF86AudioPlay exec playerctl play
 	bindsym XF86AudioPause exec playerctl pause
 	bindsym XF86AudioNext exec playerctl next
 	bindsym XF86AudioPrev exec playerctl previous 
 	# keyboard layouts
-	exec "setxkbmap -layout us,ru"
-	exec "setxkbmap -option 'grp:alt_shift_toggle'"
+	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 # autostart
+	# mount partitions
+	exec --no-startup-id ldm -d -u gkeep 
+	# notifications
+	exec --no-startup-id dunst
 	# redshift
 	exec redshift-gtk -l 50.5:30.4 -t 6500:3000
 	# compton
-	exec --no-startup-id compton --config ~/.config/compton/compton.conf --vsync opengl 
+	exec --no-startup-id compton --config ~/.config/compton/compton.conf
 # screenshots
         # Multi-screen screenshots with scrot
-	bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+	bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' && notify-send 'Screenshot taken.'
 
 	# OSX-like area selection screenshots
-	bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
+	bindsym --release Shift+Print exec notify-send 'Select an area' && scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' && notify-send 'Screenshot taken'
