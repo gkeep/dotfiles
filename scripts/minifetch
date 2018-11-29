@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+
+# extremely simple system info script
+# written by Nathaniel Maia, 2017-2018
+# forked by gkeep 2018
+
+# colours
+FG=$'\e[0m'
+for n in {0..7}; do
+    printf -v FG${n} "%b" "\e[3${n}m"
+done
+
+# Set colors as $FG0-7
+for n in {0..7}; do printf -v FG${n} "%b" "\e[3${n}m"; done
+
+# repeat $2 n times, where n = $1
+rep_char() { nstring="$(printf "%$1s")" ; echo "${nstring// /$2}" ; }
+
+# current window manager
+cur_wm() {
+    [[ $DISPLAY && ! $WM ]] && {
+        ID="$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)"
+        WM="$(xprop -id "${ID##* }" -notype -len 100 -f _NET_WM_NAME 8t)"
+        WM="${WM/*WM_NAME = }" WM="${WM/\"}" WM="${WM/\"*}"
+    } || WM="${WM:-tty${TTY:9}}" # fallback for tty or unsupported WM
+    echo "$WM"
+}
+
+# terminal name
+TRM="${TERM/-256color/}"    # most terminals use a -256color suffix, remove it
+TRM="${TERM/*-termite/termite}" # termite is xterm-termite, truncate to just termite
+
+# MEM = used / total
+FREE="$(free --mega)"
+MB=$(awk 'NR==2 {print $3}' <<< "$FREE")
+GB=$(awk 'NR==2 {print $3 / 1000}' <<< "$FREE")
+TOT=$(awk 'NR==2 {print $2 / 1000}' <<< "$FREE")
+(( MB > 1000 )) && MEM="${GB:0:5}gb / ${TOT/\.*}gb" || MEM="${MB}mb / ${TOT/\.*}gb"
+
+# C = number of cores
+C=$(grep -c '^processor' /proc/cpuinfo)
+C=${C:-$(grep -c '^core' /proc/cpuinfo)}
+C=${C:-1}
+
+# CPU = usage / cores
+CPU=$(ps aux | awk 'BEGIN {sum = 0} {sum += $3}; END {print sum}')
+CPU=${CPU/\.*}
+# For multi core/thread, CPU needs to be divided by # of cores for average
+(( C > 1 )) && CPU=$((CPU / C))
+(( CPU > 100 )) && CPU="$C cores @ 100% avg" || CPU="$C cores @ $CPU% avg"
+
+# detect distro
+HOSTN=$(hostname)
+Distro() {
+    if [ -f /etc/os-release ]; then
+    # freedesktop.org and systemd
+    . /etc/os-release
+    OS=$NAME
+    VER=$VERSION_ID
+elif type lsb_release >/dev/null 2>&1; then
+    # linuxbase.org
+    OS=$(lsb_release -si)
+    VER=$(lsb_release -sr)
+elif [ -f /etc/lsb-release ]; then
+    # For some versions of Debian/Ubuntu without lsb_release command
+    . /etc/lsb-release
+    OS=$DISTRIB_ID
+    VER=$DISTRIB_RELEASE
+elif [ -f /etc/debian_version ]; then
+    # Older Debian/Ubuntu/etc.
+    OS=Debian
+    VER=$(cat /etc/debian_version)
+elif [ -f /etc/SuSe-release ]; then
+    # Older SuSE/etc.
+    ...
+elif [ -f /etc/redhat-release ]; then
+    # Older Red Hat, CentOS, etc.
+    ...
+else
+    # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+    OS=$(uname -s)
+    VER=$(uname -r)
+fi
+
+echo $OS
+}
+UPT=$(uptime -p | awk -NF'up ' '{print $2}' | sed 's/ minutes\?/m/;s/ hours\?/h/;s/ days\?/d/')
+
+# theme and icon settings
+GTKTheme=$(gsettings get org.gnome.desktop.interface gtk-theme | tr -d \')
+IconTheme=$(gsettings get org.gnome.desktop.interface icon-theme | tr -d \')
+
+# print everything out
+cat <<- EOF
+
+${FG6}                   -'                         ${FG5}===>$FG ${FG4}$USER$FG2 @ ${FG6}$HOSTN
+${FG6}                  ,o+'                        ${FG5}$(rep_char $((${#USER} + 9 + ${#HOSTN})) "=")>
+${FG6}                 'ooo/
+${FG6}                '+oooo:                       ${FG6}->$FG   Distro$FG1:       ${FG4}$(Distro)
+${FG6}               '+oooooo:                      ${FG6}->$FG   Kernel$FG1:       ${FG4}$(uname -r)
+${FG6}               -+oooooo+:                     ${FG6}->$FG   Packages$FG1:     ${FG4}$(pacman -Qq | wc -l)
+${FG6}             '/:-:++oooo+:
+${FG6}            '/++++/+++++++:                   ${FG6}->$FG   Shell$FG1:        ${FG4}$(basename "$SHELL")
+${FG6}           '/++++++++++++++:                  ${FG6}->$FG   Terminal$FG1:     ${FG4}${TRM:-$FB}
+${FG6}          '/+++ooooooooooooo/'                ${FG6}->$FG   Current WM$FG1:   ${FG4}$(cur_wm)
+${FG6}         ,/ooosssso++osssssso+'
+${FG6}        ,oossssso-''''/ossssss+'              ${FG6}->$FG   CPU$FG1:          ${FG4}${CPU:-$FB}
+${FG6}       -osssssso,      :ssssssso,             ${FG6}->$FG   Memory$FG1:       ${FG4}${MEM:-$FB}
+${FG6}      :osssssss/        osssso+++,            ${FG6}->$FG   Uptime$FG1:       ${FG4}${UPT}
+${FG6}     /ossssssss/        +ssssooo/-
+${FG6}   '/ossssso+/:-        -:/+osssso+-          ${FG6}->$FG   GTK theme$FG1:    ${FG4}${GTKTheme}
+${FG6}  '+sso+:-'                 ',-/+oso:         ${FG6}->$FG   Icon theme$FG1:   ${FG4}${IconTheme}
+${FG6} '++:,                           '-/+/
+${FG6} ',                                 '/        ${FG1}████${FG2}████${FG3}████${FG4}████${FG5}████${FG6}████${FG7}████${FG}
+
+EOF
