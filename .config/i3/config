@@ -24,10 +24,9 @@ bindsym $mod+d exec --no-startup-id rofi -show run -modi run -location 1 -width 
 		 -separator-style none -font "mono 10" -columns 9 -bw 0 \
 
 # sound
-exec --no-startup-id volumeicon
 bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
-#exec --no-startup-id pulseaudio
-exec --no-startup-id pa-applet
+exec --no-startup-id pulseaudio
+#exec --no-startup-id pa-applet
 
 bindsym Ctrl+Shift+plus exec "xbacklight -inc 10; notify-send 'Brightness up'"
 bindsym Ctrl+Shift+minus exec "xbacklight -dec 10; notify-send 'Brightness down'"
@@ -90,7 +89,7 @@ bindsym $mod+Ctrl+Left workspace prev
 # Workspaces
 set $ws1 "1:"
 set $ws2 "2:"
-set $ws3 "3:"
+set $ws3 "3:"
 set $ws4 "4:"
 set $ws5 5
 set $ws6 6
@@ -126,11 +125,10 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Open applications on specific workspaces
 assign [class="Chromium"] $ws1
-assign [class='google-chrome-stable'] $ws1
 assign [class="Firefox"] $ws1
 for_window [class="Spotify"] move to workspace $ws3
 assign [class="ckb-next"] $ws6
-assign [class="code"] $ws4
+for_window [class="code"] move to workspace $ws4
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -139,9 +137,9 @@ for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
-for_window [class="Lightdm-settings"] floating enable
+for_window [class="bleachbit"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="VLC"] floating enable
+#for_window [class="vlc"] floating enable resize set 896 504
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
@@ -213,11 +211,11 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# i3bar + bumblebee-status 
+# polybar + i3bar + bumblebee-status 
 bar {   
-	status_command bumblebee-status -m memory battery spotify xrandr date time pasink -p time.format="%H:%M:%S" date.format="%a, %b %d %Y" -t iceberg
+	status_command bumblebee-status -m battery spotify xrandr date time pasink -p time.format="%H:%M:%S" date.format="%a, %b %d %Y" -t iceberg
 	i3bar_command i3bar
-	position top
+	position bottom
 
 	tray_output eDP-1
 
@@ -238,6 +236,8 @@ bar {
   
     }
 }
+
+#exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 
 bindsym $mod+m bar mode toggle
 
@@ -296,26 +296,25 @@ mode "$mode_gaps_outer" {
 }
 
 # user customization
-	# python script to exec screen config script and exec feh
-	exec python /home/gkeep/scripts/dualscreenfixer.py
+	# script to configure screens and exec feh
+	exec sh $HOME/scripts/monitorstuff.sh
 	# enable volume keys
 	bindsym $mod+Shift+plus exec --no-startup-id pactl set-sink-volume 0 +5%
 	bindsym $mod+Shift+minus exec --no-startup-id pactl set-sink-volume 0 -5%
 	bindsym $mod+Shift+0 exec --no-startup-id pactl set-sink-mute 0 toggle
-	# Media player controls
-	bindsym XF86AudioPlay exec playerctl play
-	bindsym XF86AudioPause exec playerctl pause
-	bindsym XF86AudioNext exec playerctl next
-	bindsym XF86AudioPrev exec playerctl previous 
 	# keyboard layouts
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 # autostart
-	# mount partitions
-	exec --no-startup-id ldm -d -u gkeep 
+	# fix pulseaudio
+	exec sh ~/scripts/pulseaudiofix.sh
+	# mount
+	exec ldm -d -u gkeep
+	# mpd
+	exec --no-startup-id mpd
 	# notifications
 	exec --no-startup-id dunst
 	# redshift
-	exec redshift-gtk -l 50.5:30.4 -t 6500:3000
+	exec --no-startup-id redshift-gtk -l 50.5:30.4 -t 6500:3000
 	# compton
 	exec --no-startup-id compton --config ~/.config/compton/compton.conf
 # screenshots
