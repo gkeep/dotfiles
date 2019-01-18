@@ -11,7 +11,7 @@ bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
 # Font for window titles
-font xft:URWGothic-Book 11
+font xft:Source Code Pro 11
 
 floating_modifier $mod
 
@@ -19,27 +19,22 @@ bindsym $mod+Return exec termite
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id rofi -show run -modi run -location 1 -width 100 \
-		 -lines 3 -line-margin 0 -line-padding 1 \
-		 -separator-style none -font "mono 10" -columns 9 -bw 0 \
+bindsym $mod+d exec --no-startup-id rofi -show run
 
 # sound
 bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
 exec --no-startup-id pulseaudio
-#exec --no-startup-id pa-applet
 
 bindsym Ctrl+Shift+plus exec "xbacklight -inc 10; notify-send 'Brightness up'"
 bindsym Ctrl+Shift+minus exec "xbacklight -dec 10; notify-send 'Brightness down'"
 
-bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-#bindsym $mod+F2 exec chromium
 bindsym $mod+F1 exec nautilus
-bindsym $mod+F2 exec firefox
+bindsym $mod+F2 exec chromium 
 bindsym $mod+F3 exec spotify
 bindsym $mod+F4 exec code
 bindsym $mod+grave exec termite -e gotop
 
-focus_follows_mouse yes
+focus_follows_mouse no
 
 # change focus
 bindsym $mod+j focus left
@@ -74,9 +69,20 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-bindsym $mod+Shift+space floating toggle resize set 896 504
+bindsym $mod+Shift+space floating toggle resize set 1152 648
 
 bindsym $mod+space focus mode_toggle
+
+# laptop buttons
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -87,14 +93,15 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # Workspaces
-set $ws1 "1:"
-set $ws2 "2:"
+set $ws1 "1:"
+set $ws2 "2:"
 set $ws3 "3:"
 set $ws4 "4:"
 set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
+set $ws9 9
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -104,6 +111,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
 
 bindsym $mod+Ctrl+1 move container to workspace $ws1
 bindsym $mod+Ctrl+2 move container to workspace $ws2
@@ -113,6 +121,7 @@ bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
 
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
@@ -122,37 +131,32 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
-assign [class="Chromium"] $ws1
-assign [class="Firefox"] $ws1
+assign [class="Chromium"] $ws2
+assign [class="Firefox"] $ws2
 for_window [class="Spotify"] move to workspace $ws3
 assign [class="ckb-next"] $ws6
 for_window [class="code"] move to workspace $ws4
+for_window [class="qbittorrent"] move to workspace $ws8
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
+for_window [class="mpv"] floating enable resize set 768 432
 for_window [title="File Transfer*"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
 for_window [class="bleachbit"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-#for_window [class="vlc"] floating enable resize set 896 504
-for_window [class="Pavucontrol"] floating enable
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-#for_window [class="Thunar"] floating enable
 
 bindsym $mod+Shift+c reload
 
 bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-# lock the screen
-bindsym $mod+9 exec --no-startup-id blurlock
 
 bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
@@ -188,10 +192,7 @@ mode "resize" {
 # Autostart applications
 exec --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on 
-# exec --no-startup-id blueman-applet
 exec --no-startup-id xautolock -time 20 -locker blurlock
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
 
 set_from_resource $term_background background
 set_from_resource $term_foreground foreground
@@ -211,33 +212,28 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# polybar + i3bar + bumblebee-status 
 bar {   
-	status_command bumblebee-status -m battery spotify xrandr date time pasink -p time.format="%H:%M:%S" date.format="%a, %b %d %Y" -t iceberg
+	status_command bumblebee-status -m battery sensors mpd spotify date time pasink -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
 	i3bar_command i3bar
 	position bottom
-
-	tray_output eDP-1
-
-	font pango:DejaVu Sans Mono, FontAwesome 9
+	height 25
+	tray_output eDP1
+	font pango:DejaVu Sans Mono, FontAwesome 10
 	strip_workspace_numbers yes 
 
         colors {
-
 	background #161821
 	statusline #c6c9d1
 	separator  #c6c9d1
 
 #                           border  backgr. text
-	focused_workspace   #c6c9d1 #d2d4de #0f1117
-	active_workspace    #b4be82 #b1b2c0 #0f1117
+	focused_workspace   #b4be82 #b1b2c0 #0f1117
+	active_workspace    #9b9dae #9b9dae #0f1117
 	inactive_workspace  #161821 #0f1117 #d2d4de
 	urgent_workspace    #b4be82 #b4be82 #161821
   
     }
 }
-
-#exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 
 bindsym $mod+m bar mode toggle
 
@@ -251,7 +247,7 @@ bindsym $mod+m bar mode toggle
 
   client.background       #161821
 
-# Set inner/outer gaps
+#Set inner/outer gaps
 gaps inner 4
 gaps outer -2
 
@@ -296,30 +292,19 @@ mode "$mode_gaps_outer" {
 }
 
 # user customization
-	# script to configure screens and exec feh
+	for_window [title="mpv"] move position center
+	# script to configure screens, launch polybar and exec feh
 	exec sh $HOME/scripts/monitorstuff.sh
+	# fix pulseaudio
+	exec sh $HOME/scripts/pulseaudiofix.sh
 	# enable volume keys
-	bindsym $mod+Shift+plus exec --no-startup-id pactl set-sink-volume 0 +5%
-	bindsym $mod+Shift+minus exec --no-startup-id pactl set-sink-volume 0 -5%
-	bindsym $mod+Shift+0 exec --no-startup-id pactl set-sink-mute 0 toggle
-	# keyboard layouts
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 # autostart
-	# fix pulseaudio
-	exec sh ~/scripts/pulseaudiofix.sh
-	# mount
-	exec ldm -d -u gkeep
 	# mpd
 	exec --no-startup-id mpd
 	# notifications
 	exec --no-startup-id dunst
-	# redshift
-	exec --no-startup-id redshift-gtk -l 50.5:30.4 -t 6500:3000
+	# blugon
+	exec blugon --backend scg 
 	# compton
-	exec --no-startup-id compton --config ~/.config/compton/compton.conf
-# screenshots
-        # Multi-screen screenshots with scrot
-	bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' && notify-send 'Screenshot taken.'
-
-	# OSX-like area selection screenshots
-	bindsym --release Shift+Print exec notify-send 'Select an area' && scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' && notify-send 'Screenshot taken'
+	exec --no-startup-id compton --backend glx --paint-on-overlay --vsync opengl-swc --config ~/.config/compton/compton.conf
