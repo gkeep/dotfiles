@@ -88,7 +88,7 @@ color7 = #c6c8d1
 color15 = #d2d4de
 
 # 10% background transparency (requires a compositor)
-background = rgba(22, 24, 33, 1)
+background = rgba(22, 24, 33, 0.93)
 
 # If unset, will reverse foreground and background
 highlight = #2f2f2f

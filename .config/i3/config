@@ -19,7 +19,8 @@ bindsym $mod+Return exec termite
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+d exec --no-startup-id dmenu_run -fn SourceCodePro
+#bindsym $mod+d exec --no-startup-id rofi -show run
 
 # sound
 bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
@@ -28,8 +29,8 @@ exec --no-startup-id pulseaudio
 bindsym Ctrl+Shift+plus exec "xbacklight -inc 10; notify-send 'Brightness up'"
 bindsym Ctrl+Shift+minus exec "xbacklight -dec 10; notify-send 'Brightness down'"
 
-bindsym $mod+F1 exec nautilus
-bindsym $mod+F2 exec chromium 
+bindsym $mod+F1 exec pcmanfm
+bindsym $mod+F2 exec firefox 
 bindsym $mod+F3 exec spotify
 bindsym $mod+F4 exec code
 bindsym $mod+grave exec termite -e gotop
@@ -75,7 +76,7 @@ bindsym $mod+space focus mode_toggle
 
 # laptop buttons
 bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioStop exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -212,6 +213,8 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
+#exec --no-startup-id polybar -r -c ~/.config/polybar/config bar
+
 bar {   
 	status_command bumblebee-status -m battery sensors mpd spotify date time pasink -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
 	i3bar_command i3bar
@@ -227,9 +230,9 @@ bar {
 	separator  #c6c9d1
 
 #                           border  backgr. text
-	focused_workspace   #b4be82 #b1b2c0 #0f1117
-	active_workspace    #9b9dae #9b9dae #0f1117
-	inactive_workspace  #161821 #0f1117 #d2d4de
+	focused_workspace   #161821 #b2b4be #161821
+	active_workspace    #b4be82 #b4be82 #161821
+	inactive_workspace  #161821 #161821 #d2d4de
 	urgent_workspace    #b4be82 #b4be82 #161821
   
     }
@@ -292,13 +295,14 @@ mode "$mode_gaps_outer" {
 }
 
 # user customization
+	exec sh $HOME/scripts/pulseaudiofix.sh
 	for_window [title="mpv"] move position center
 	# script to configure screens, launch polybar and exec feh
 	exec sh $HOME/scripts/monitorstuff.sh
-	# fix pulseaudio
-	exec sh $HOME/scripts/pulseaudiofix.sh
 	# enable volume keys
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
+	# screenshot tool
+	bindsym $mod+Print exec flameshot gui
 # autostart
 	# mpd
 	exec --no-startup-id mpd
@@ -307,4 +311,4 @@ mode "$mode_gaps_outer" {
 	# blugon
 	exec blugon --backend scg 
 	# compton
-	exec --no-startup-id compton --backend glx --paint-on-overlay --vsync opengl-swc --config ~/.config/compton/compton.conf
+	exec --no-startup-id compton --backend glx --vsync opengl-swc --config ~/.config/compton/compton.conf
