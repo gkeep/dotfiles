@@ -17,6 +17,8 @@ Installed plugins and active theme:
 8. [nerdtree](https://github.com/scrooloose/nerdtree)
 9. [fzf](https://github.com/junegunn/fzf)
 
+![screenshot](https://i.imgur.com/p82hVEO.png)
+
 ## bumblebee-status
 
 iceberg-dark-powerline.json is custom bumblebee-status colour scheme inspired by iceberg colour scheme for termite, vim and vscode
