@@ -1,0 +1,52 @@
+body {
+    background-color: #161821;
+    font-family: DejaVuSansMono Nerd Font;
+    font-size: 14px;
+}
+.flex {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.search-container {
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.search-container .search {
+    border: none;
+    height: 20px;
+    width: 40rem;
+    font-size: 3rem;
+    background-color: #0f1117;
+    /* PYWAL COLORS
+    background-color: var(--color1);
+    */
+    padding: 2rem;
+}
+a:link, a:visited { 
+    color: #d2d4de;
+    text-decoration: none;
+}
+li {
+    color: #d2d4de;
+}
+.mother {
+    margin-top: 10%;
+    margin-left: 12%;
+    width: 30%;
+    border-color: #d2d4de;
+    border-style: solid;
+    border-width: 5px;
+    display: inline-flex;
+    /*margin-right: 5%;*/
+}
+p {
+    text-align: left;
+    font-weight: bold;
+}
