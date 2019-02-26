@@ -19,6 +19,11 @@ Installed plugins and active theme:
 
 ![screenshot](https://i.imgur.com/p82hVEO.png)
 
+## startpage
+
+A simple startpage with frequently visited websites and duckduckgo search bar.
+![scrotwithstartpage](startpage/scrotwithstartpage.png)
+
 ## bumblebee-status
 
 iceberg-dark-powerline.json is custom bumblebee-status colour scheme inspired by iceberg colour scheme for termite, vim and vscode
