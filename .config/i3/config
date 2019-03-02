@@ -5,13 +5,11 @@ new_float normal
 
 hide_edge_borders none
 
-# change borders
 bindsym $mod+u border none
 bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
-# Font for window titles
-font xft:Source Code Pro 11
+font xft:DejaVu Sans Mono 11
 
 floating_modifier $mod
 
@@ -19,10 +17,8 @@ bindsym $mod+Return exec termite
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run -fn SourceCodePro
-#bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+d exec --no-startup-id dmenu_run
 
-# sound
 bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
 exec --no-startup-id pulseaudio
 
@@ -35,7 +31,7 @@ bindsym $mod+F3 exec spotify
 bindsym $mod+F4 exec code
 bindsym $mod+grave exec termite -e gotop
 
-focus_follows_mouse no
+focus_follows_mouse yes 
 
 # change focus
 bindsym $mod+j focus left
@@ -75,15 +71,16 @@ bindsym $mod+Shift+space floating toggle resize set 1152 648
 bindsym $mod+space focus mode_toggle
 
 # laptop buttons
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioStop exec playerctl pause
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -2%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 && notify-send 'brightness increased'
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 && notify-send 'brightness decreased'
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -101,7 +98,7 @@ set $ws4 "4:"
 set $ws5 5
 set $ws6 6
 set $ws7 7
-set $ws8 8
+set $ws8 "8:"
 set $ws9 9
 
 bindsym $mod+1 workspace $ws1
@@ -147,6 +144,7 @@ for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 for_window [class="mpv"] floating enable resize set 768 432
+for_window [title="mpv"] move position center
 for_window [title="File Transfer*"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
@@ -213,15 +211,14 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-#exec --no-startup-id polybar -r -c ~/.config/polybar/config bar
-
 bar {   
-	status_command bumblebee-status -m battery sensors mpd spotify date time pasink -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
+	#status_command i3status
+	status_command bumblebee-status -m battery mpd date time pasink -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
 	i3bar_command i3bar
-	position bottom
-	height 25
+	position top
+	height 23
 	tray_output eDP1
-	font pango:DejaVu Sans Mono, FontAwesome 10
+	font pango:DejaVu Sans Mono, Font Awesome 9
 	strip_workspace_numbers yes 
 
         colors {
@@ -296,10 +293,9 @@ mode "$mode_gaps_outer" {
 
 # user customization
 	exec sh $HOME/scripts/pulseaudiofix.sh
-	for_window [title="mpv"] move position center
-	# script to configure screens, launch polybar and exec feh
-	exec sh $HOME/scripts/monitorstuff.sh
-	# enable volume keys
+	# apply wallpaper
+	exec_always feh --bg-fill --randomize ~/.wallpaper/*
+	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
 	bindsym $mod+Print exec flameshot gui
