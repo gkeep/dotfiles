@@ -3,10 +3,10 @@ set t_Co=256
 syntax on
 set number
 vnoremap <C-c> "*y
-set nu rnu
+set rnu
 set so=5
-execute pathogen#infect()
 call plug#begin('~/.vim/plugged')
+	Plug 'cocopon/iceberg.vim'
 	Plug 'itchyny/lightline.vim'
 	Plug 'mattn/emmet-vim'
 	if has('nvim')
@@ -18,7 +18,6 @@ call plug#begin('~/.vim/plugged')
 	endif	
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'airblade/vim-gitgutter'
-	Plug 'junegunn/fzf'
 	Plug 'scrooloose/nerdtree'
 	Plug 'joshdick/onedark.vim'
 	Plug 'sheerun/vim-polyglot'

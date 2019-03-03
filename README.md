@@ -11,13 +11,11 @@ Installed plugins and active theme:
 2. [lightline](https://github.com/itchyny/lightline.vim)
 3. Theme for vim/neovim and lightline: ~~[onedark.vim](https://github.com/joshdick/onedark.vim)~~ [iceberg.vim](https://github.com/cocopon/iceberg.vim)
 4. [vim-polyglot](https://github.com/sheerun/vim-polyglot)
-5. [ncm2](https://github.com/ncm2/ncm2)
-6. [auto-pairs](https://github.com/jiangmiao/auto-pairs)
-7. [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
-8. [nerdtree](https://github.com/scrooloose/nerdtree)
-9. [fzf](https://github.com/junegunn/fzf)
+5. [auto-pairs](https://github.com/jiangmiao/auto-pairs)
+6. [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
+7. [nerdtree](https://github.com/scrooloose/nerdtree)
 
-![screenshot](https://i.imgur.com/p82hVEO.png)
+![screenshot](nvimscrot.png)
 
 ## startpage
 
@@ -35,3 +33,4 @@ iceberg-dark-powerline.json is custom bumblebee-status colour scheme inspired by
 Put iceberg-dark-powerline.json in your **bumblebee-status/themes/** folder (e.g. /home/*username*/bumblebee-status/themes/iceberg-dark-powerline.json)
 
 If you installed bumblebee-status via AUR put the .json file in **/usr/share/bumblebee-status/themes/** so path to the file is */usr/share/bumblebee-status/themes/iceberg-dark-powerline.json*.
+
