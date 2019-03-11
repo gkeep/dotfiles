@@ -1,7 +1,6 @@
 # dotfiles
 
-![Screenshot](https://i.imgur.com/7hpkHkM.png)
-Whole album [here](https://imgur.com/a/lgL9Z9u)
+![Screenshot](scrot.png)
 
 ## neovim
 

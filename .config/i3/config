@@ -292,7 +292,6 @@ mode "$mode_gaps_outer" {
 }
 
 # user customization
-	exec sh $HOME/scripts/pulseaudiofix.sh
 	# apply wallpaper
 	exec_always feh --bg-fill --randomize ~/.wallpaper/*
 	# change kb layout
