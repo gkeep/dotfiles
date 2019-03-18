@@ -9,27 +9,23 @@ bindsym $mod+u border none
 bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
-font xft:DejaVu Sans Mono 11
+font pango:Monospace
 
 floating_modifier $mod
 
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec st
 
 bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id dmenu_run
 
-bindsym $mod+Ctrl+m exec termite -e 'alsamixer'
+bindsym $mod+Ctrl+m exec st -e 'alsamixer'
 exec --no-startup-id pulseaudio
 
-bindsym Ctrl+Shift+plus exec "xbacklight -inc 10; notify-send 'Brightness up'"
-bindsym Ctrl+Shift+minus exec "xbacklight -dec 10; notify-send 'Brightness down'"
-
-bindsym $mod+F1 exec pcmanfm
+bindsym $mod+F1 exec thunar
 bindsym $mod+F2 exec firefox 
-bindsym $mod+F3 exec spotify
 bindsym $mod+F4 exec code
-bindsym $mod+grave exec termite -e gotop
+bindsym $mod+grave exec st -e gotop
 
 focus_follows_mouse yes 
 
@@ -79,8 +75,8 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +2%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -2%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 && notify-send 'brightness increased'
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 && notify-send 'brightness decreased'
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -91,15 +87,24 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # Workspaces
-set $ws1 "1:"
-set $ws2 "2:"
-set $ws3 "3:"
-set $ws4 "4:"
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 "8:"
-set $ws9 9
+#set $ws1 "1:"
+#set $ws2 "2:"
+#set $ws3 "3:"
+#set $ws4 "4:"
+#set $ws5 5
+#set $ws6 6
+#set $ws7 7
+#set $ws8 "8:"
+#set $ws9 9
+set $ws1 "1: term"
+set $ws2 "2: web"
+set $ws3 "3: code"
+set $ws4 "4: server"
+set $ws5 "5: music"
+set $ws6 "6: random"
+set $ws7 "7: random"
+set $ws8 "8: random"
+set $ws9 "9: random"
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -132,12 +137,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
-assign [class="Chromium"] $ws2
 assign [class="Firefox"] $ws2
-for_window [class="Spotify"] move to workspace $ws3
 assign [class="ckb-next"] $ws6
-for_window [class="code"] move to workspace $ws4
-for_window [class="qbittorrent"] move to workspace $ws8
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -218,8 +219,8 @@ bar {
 	position top
 	height 23
 	tray_output eDP1
-	font pango:DejaVu Sans Mono, Font Awesome 9
-	strip_workspace_numbers yes 
+	font pango:DejaVu Sans Mono Nerd Font 9
+	strip_workspace_numbers no 
 
         colors {
 	background #161821
@@ -299,6 +300,8 @@ mode "$mode_gaps_outer" {
 	# screenshot tool
 	bindsym $mod+Print exec flameshot gui
 # autostart
+	# gestures
+	exec --no-startup-id libinput-gestures-setup start	
 	# mpd
 	exec --no-startup-id mpd
 	# notifications

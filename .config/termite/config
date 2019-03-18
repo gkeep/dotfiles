@@ -3,7 +3,7 @@ allow_bold = true
 #audible_bell = false
 #clickable_url = true
 #dynamic_title = true
-font = DejaVu Sans Mono 11
+font = DejaVuSansMono Nerd Font 11
 #fullscreen = true
 #geometry = 640x480
 #icon_name = terminal
@@ -88,7 +88,7 @@ color7 = #c6c8d1
 color15 = #d2d4de
 
 # 10% background transparency (requires a compositor)
-background = rgba(22, 24, 33, 0.75)
+background = rgba(22, 24, 33, 0.9)
 
 # If unset, will reverse foreground and background
 highlight = #2f2f2f
