@@ -1,6 +1,13 @@
 # dotfiles
 
-![Screenshot](scrot.png)
+## dwm
+
+![screenshot](dwmscrot.png)
+
+**Scripts** (startup, bar, etc) are at **.dwm** folder. My suckless **configs** (dwm, st, dmenu) are located at **suckless** folder.
+
+## i3wm
+![Screenshot](i3scrot.png)
 
 ## neovim
 
@@ -8,7 +15,7 @@ Installed plugins and active theme:
 
 1. [emmet-vim](https://github.com/mattn/emmet-vim)
 2. [lightline](https://github.com/itchyny/lightline.vim)
-3. Theme for vim/neovim and lightline: ~~[onedark.vim](https://github.com/joshdick/onedark.vim)~~ [iceberg.vim](https://github.com/cocopon/iceberg.vim)
+3. Theme for vim/neovim and lightline: [iceberg.vim](https://github.com/cocopon/iceberg.vim)
 4. [vim-polyglot](https://github.com/sheerun/vim-polyglot)
 5. [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 6. [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
@@ -19,7 +26,7 @@ Installed plugins and active theme:
 ## startpage
 
 A simple startpage with frequently visited websites and duckduckgo search bar.
-![scrotwithstartpage](startpage/scrotwithstartpage.png)
+![startpage](startpage/startpagescrot.png)
 
 ## bumblebee-status
 

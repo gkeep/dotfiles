@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Dmenu shutdown/lock/suspend/reboot menu.
+output=$(echo -e "shutdown\nreboot\nsuspend\nlock" | dmenu)
+
+case "$output" in
+    shutdown)
+        shutdown
+    ;;
+    reboot)
+        shutdown -r
+    ;;
+    suspend)
+        blurlock && suspend
+    ;;
+    lock)
+        blurlock &
+    ;;
+esac

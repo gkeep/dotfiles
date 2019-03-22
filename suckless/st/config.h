@@ -56,6 +56,11 @@ static unsigned int blinktimeout = 800;
  */
 static unsigned int cursorthickness = 2;
 
+const int boxdraw = 0;
+const int boxdraw_bold = 0;
+const int boxdraw_braille = 0;
+
+
 /*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
  * it
