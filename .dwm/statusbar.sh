@@ -26,7 +26,7 @@ do
 	STR+=" /  $temp"
 	
 	# Connection
-	ssid="$( nmcli device status | grep connected | awk '{print $4;}' )"
+	ssid="$( nmcli device status | grep connected | awk '{print $4;}' | sed 's/\-//g' )"
 	if [[ $ssid != "--" ]]; then
 		STR+=" /  $ssid"
 	else
@@ -34,7 +34,8 @@ do
 	fi
 
 	# Date/Time
-	STR+=$( date +' / %R' )
+	time=$( date +'%R' )
+	STR+=" /  $time"
 	
 	xsetroot -name "$STR"
 	sleep 1

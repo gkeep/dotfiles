@@ -8,4 +8,4 @@ mpd &
 blugon -b scg &
 nm-applet &
 sh /home/gkeep/.dwm/statusbar.sh &
-#slstatus &
+setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru' &
