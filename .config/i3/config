@@ -22,9 +22,9 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+Ctrl+m exec st -e 'alsamixer'
 exec --no-startup-id pulseaudio
 
-bindsym $mod+F1 exec thunar
+bindsym $mod+F1 exec st -e ranger
 bindsym $mod+F2 exec firefox 
-bindsym $mod+F4 exec code
+bindsym $mod+F3 exec st -e ncmpcpp 
 bindsym $mod+grave exec st -e gotop
 
 focus_follows_mouse yes 
@@ -51,8 +51,8 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+h split h;
+bindsym $mod+v split v;
 bindsym $mod+q split toggle
 
 bindsym $mod+f fullscreen toggle
@@ -62,7 +62,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-bindsym $mod+Shift+space floating toggle resize set 1152 648
+bindsym $mod+Shift+space floating toggle resize set 1280 720
 
 bindsym $mod+space focus mode_toggle
 
@@ -87,15 +87,6 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # Workspaces
-#set $ws1 "1:"
-#set $ws2 "2:"
-#set $ws3 "3:"
-#set $ws4 "4:"
-#set $ws5 5
-#set $ws6 6
-#set $ws7 7
-#set $ws8 "8:"
-#set $ws9 9
 set $ws1 "1: term"
 set $ws2 "2: web"
 set $ws3 "3: code"
@@ -144,8 +135,6 @@ assign [class="ckb-next"] $ws6
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
-for_window [class="mpv"] floating enable resize set 768 432
-for_window [title="mpv"] move position center
 for_window [title="File Transfer*"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
@@ -189,7 +178,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# Autostart applications
 exec --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on 
 exec --no-startup-id xautolock -time 20 -locker blurlock
@@ -214,12 +202,12 @@ set_from_resource $term_color15    color15
 
 bar {   
 	#status_command i3status
-	status_command bumblebee-status -m battery mpd date time pasink -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
+	status_command bumblebee-status -m battery sensors mpd date time amixer -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
 	i3bar_command i3bar
 	position top
 	height 23
 	tray_output eDP1
-	font pango:DejaVu Sans Mono Nerd Font 9
+	font pango:DejaVu Sans Mono, Font Awesome 9
 	strip_workspace_numbers no 
 
         colors {
