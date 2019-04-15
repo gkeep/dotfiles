@@ -4,7 +4,7 @@
 Applied patches:
 
 1. ![attachaside](https://dwm.suckless.org/patches/attachaside/)
-2. ![autostart](]https://dwm.suckless.org/patches/autostart/)
+2. ![autostart](https://dwm.suckless.org/patches/autostart/)
 3. ![bottomstack](https://dwm.suckless.org/patches/bottomstack/)
 4. ![cyclelayouts](https://dwm.suckless.org/patches/cyclelayouts/)
 5. ![fancybar](https://dwm.suckless.org/patches/fancybar/)
