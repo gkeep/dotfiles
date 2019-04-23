@@ -41,7 +41,7 @@ Applied patches:
 
 ## bumblebee-status
 
-iceberg-dark-powerline.json is custom bumblebee-status colour scheme inspired by iceberg colour scheme for termite, vim and vscode
+iceberg-dark-powerline.json is custom bumblebee-status colour scheme inspired by ![cocopon's vim theme](https://github.com/cocopon/iceberg.vim).
 
 ![theme](iceberg-dark-powerline.png)
 
