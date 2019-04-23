@@ -5,26 +5,15 @@ set number
 vnoremap <C-c> "*y
 set nu rnu
 set so=5
-execute pathogen#infect()
-call plug#begin('~/.vim/plugged')
-	Plug 'itchyny/lightline.vim'
-	Plug 'mattn/emmet-vim'
-	if has('nvim')
-  	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	else
-  	Plug 'Shougo/deoplete.nvim'
-  	Plug 'roxma/nvim-yarp'
-  	Plug 'roxma/vim-hug-neovim-rpc'
-	endif	
-	Plug 'jiangmiao/auto-pairs'
-	Plug 'airblade/vim-gitgutter'
-	Plug 'junegunn/fzf'
-	Plug 'scrooloose/nerdtree'
-	Plug 'joshdick/onedark.vim'
-	Plug 'sheerun/vim-polyglot'
-call plug#end()
-let g:deoplete#enable_at_startup = 1
+
+map <F8> :TagbarToggle<CR>
 colorscheme iceberg
+
+if ($TERM == 'st-256color')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 if (empty($TMUX))
   if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -33,6 +22,7 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
 "nerdtree settings
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
