@@ -4,13 +4,6 @@ source ~/.vimrc
 let mapleader = ","
 
 call plug#begin('~/.vim/plugged')
-	if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	else
-        Plug 'Shougo/deoplete.nvim'
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
-	endif
 	Plug 'mboughaba/i3config.vim'
 	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 	Plug 'itchyny/lightline.vim'
