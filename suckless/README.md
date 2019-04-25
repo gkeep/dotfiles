@@ -11,6 +11,6 @@ Applied patches:
 8. [savefloats](https://dwm.suckless.org/patches/save_floats/)
 9. [systray](https://dwm.suckless.org/patches/systray/)
 
-![screenshot](dwmscrot.png)
+![screenshot](../screenshots/dwmscrot.png)
 
 **Scripts** (startup, bar, etc) are at **.dwm** folder.
