@@ -1,4 +1,3 @@
-# MOVED TO [GITLAB](https://gitlab.com/gkeep7/dotfiles)
 # dotfiles
 
 ![Screenshot](i3scrot.png)
@@ -14,4 +13,5 @@ Now available at the official [bumblebee-status repo](https://github.com/tobi-wa
 ## startpage
 
 A simple startpage with frequently visited websites and duckduckgo search bar.
+
 ![startpage](startpage/startpagescrot.png)
