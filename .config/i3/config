@@ -24,8 +24,8 @@ exec --no-startup-id pulseaudio
 
 bindsym $mod+F1 exec alacritty -e ranger
 bindsym $mod+F2 exec firefox 
-bindsym $mod+F3 exec alacritty -e ncmpcpp 
-bindsym $mod+F4 exec code
+bindsym $mod+F3 exec vscodium
+bindsym $mod+F4 exec alacritty -e ncmpcpp 
 bindsym $mod+grave exec alacritty -e gotop
 
 focus_follows_mouse yes 
@@ -35,6 +35,9 @@ bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
+
+# alt+tab-like fuctionality
+bindsym Mod1+Tab exec rofi -modi combi -combi-modi window -show combi
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -202,11 +205,10 @@ set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
 bar {   
-	#status_command i3status
 	status_command bumblebee-status -m battery sensors mpd date time amixer -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
 	i3bar_command i3bar
 	position top
-	height 23
+	height 25
 	tray_output eDP1
 	font pango:DejaVu Sans Mono, Font Awesome 9
 	strip_workspace_numbers no 
@@ -281,21 +283,41 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
+set $mode_blue_light_filter Blue light: start, +6, -6, disable
+bindsym $mod+Shift+m mode "$mode_blue_light_filter"
+
+mode "$mode_blue_light_filter" {
+	bindsym plus  exec blugon --setcurrent="-300"
+	bindsym minus exec blugon --setcurrent="+300"
+	bindsym s     exec blugon --backend xgamma --fade
+	bindsym d     exec killall blugon
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
 # user customization
 	# apply wallpaper
-	exec_always feh --bg-fill --randomize ~/.wallpaper/*
+	exec nitrogen --restore
 	# change kb layout
-	#exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
+	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
 	bindsym $mod+Print exec flameshot gui
+	# launch clipboard manager
+	bindsym $mod+c exec clipster -sp
 # autostart
+	# clipboard manager
+	exec --no-startup-id clipster -d
 	# gestures
 	exec --no-startup-id libinput-gestures-setup start	
-	# mpd
+	# music player daemon
 	exec --no-startup-id mpd
 	# notifications
 	exec --no-startup-id dunst
-	# blugon
-	exec blugon --backend scg 
-	# compton
+	# hide cursor after 3 sec
+	exec unclutter --timeout 3
+	# blue light filter
+	#exec blugon --backend xgamma --fade 
+	# compositor
 	exec --no-startup-id compton --backend glx --vsync opengl-swc --config ~/.config/compton/compton.conf
