@@ -7,7 +7,7 @@
 body {
     background-color: #161821;
     font-family: DejaVu Sans Mono;
-    font-size: 14px;
+    font-size: 15px;
 }
 .flex {
     display: flex;
@@ -30,17 +30,17 @@ body {
     background-color: #0f1117;
     padding: 2rem;
 }
-a:link, a:visited { 
+a:link, a:visited {
     color: #d2d4de;
     text-decoration: none;
 }
-li {
+ul {
     color: #d2d4de;
 }
 .mother {
     margin-top: 10%;
-    margin-left: 12%;
-    width: 30%;
+    margin-left: 15%;
+    width: 25%;
     border-color: #d2d4de;
     border-style: solid;
     border-width: 5px;
@@ -48,5 +48,4 @@ li {
 }
 p {
     text-align: left;
-    font-weight: normal;
 }
