@@ -1,5 +1,5 @@
 ## blurlock
-### dependencies: ![i3lock-color](https://github.com/PandorasFox/i3lock-color), ImageMagick
+### dependencies: ![i3lock-color](https://github.com/PandorasFox/i3lock-color)
 
-## An actual fix for this weird pulseaduio bug
-### FIX: 'systemctl mask --user pulseaduio.socket'
+## An actual fix for this weird pulseaudio bug
+`systemctl mask --user pulseaudio.socket`
