@@ -1,12 +1,12 @@
 set $mod Mod4
 
-new_window pixel 2
+new_window pixel 1
 new_float normal
 
 hide_edge_borders none
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 2
+bindsym $mod+y border pixel 5
 bindsym $mod+n border normal
 
 font pango:Monospace
@@ -24,8 +24,9 @@ exec --no-startup-id pulseaudio
 
 bindsym $mod+F1 exec alacritty -e ranger
 bindsym $mod+F2 exec firefox 
-bindsym $mod+F3 exec vscodium
-bindsym $mod+F4 exec alacritty -e ncmpcpp 
+bindsym $mod+F3 exec joplin-desktop < /dev/null
+bindsym $mod+F4 exec telegram-desktop < /dev/null
+bindsym $mod+F5 exec alacritty -e ncmpcpp 
 bindsym $mod+grave exec alacritty -e gotop
 
 focus_follows_mouse yes 
@@ -96,10 +97,10 @@ set $ws2 "2: web"
 set $ws3 "3: code"
 set $ws4 "4: server"
 set $ws5 "5: music"
-set $ws6 "6: random"
-set $ws7 "7: random"
-set $ws8 "8: random"
-set $ws9 "9: random"
+set $ws6 "6: rnd"
+set $ws7 "7: rnd"
+set $ws8 "8: rnd"
+set $ws9 "9: rnd"
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -151,20 +152,7 @@ bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+bindsym $mod+0 exec clearine
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -184,48 +172,32 @@ mode "resize" {
 
 exec --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on 
-exec --no-startup-id xautolock -time 20 -locker blurlock
+exec_always --no-startup-id xautolock -time 5 -locker blurlock
 
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
+exec --no-startup-id bash /home/gkeep/.config/polybar/launch.sh
 
-bar {   
-	status_command bumblebee-status -m battery sensors mpd date time amixer -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
-	i3bar_command i3bar
-	position top
-	height 25
-	tray_output eDP1
-	font pango:DejaVu Sans Mono, Font Awesome 9
-	strip_workspace_numbers no 
-
-        colors {
-	background #161821
-	statusline #c6c9d1
-	separator  #c6c9d1
-
-#                           border  backgr. text
-	focused_workspace   #161821 #b2b4be #161821
-	active_workspace    #b4be82 #b4be82 #161821
-	inactive_workspace  #161821 #161821 #d2d4de
-	urgent_workspace    #b4be82 #b4be82 #161821
-  
-    }
-}
+# bar {   
+#     status_command bumblebee-status -m battery sensors mpd date time brightness amixer -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
+# 	i3bar_command i3bar
+# 	position top
+# 	height 25
+# 	tray_output eDP1
+# 	font pango: DejaVu Sans Mono for Powerline, Font Awesome 9
+# 	strip_workspace_numbers no 
+# 
+#         colors {
+# 	background #161821
+# 	statusline #c6c8d1
+# 	separator  #c6c8d1
+# 
+# #                       border  backgr. text
+# 	focused_workspace   #161821 #c6c8d1 #161821
+# 	active_workspace    #b4be82 #b4be82 #161821
+# 	inactive_workspace  #161821 #161821 #d2d4de
+# 	urgent_workspace    #b4be82 #b4be82 #161821
+#   
+#     }
+# }
 
 bindsym $mod+m bar mode toggle
 
@@ -247,59 +219,9 @@ smart_gaps on
 
 smart_borders on
 
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
-
-mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
-
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
-
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-set $mode_blue_light_filter Blue light: start, +6, -6, disable
-bindsym $mod+Shift+m mode "$mode_blue_light_filter"
-
-mode "$mode_blue_light_filter" {
-	bindsym plus  exec blugon --setcurrent="-300"
-	bindsym minus exec blugon --setcurrent="+300"
-	bindsym s     exec blugon --backend xgamma --fade
-	bindsym d     exec killall blugon
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-
 # user customization
 	# apply wallpaper
-	exec nitrogen --restore
+	exec_always feh --bg-fill /home/gkeep/.wallpaper/eXgsREN.jpg 
 	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
@@ -307,17 +229,15 @@ mode "$mode_blue_light_filter" {
 	# launch clipboard manager
 	bindsym $mod+c exec clipster -sp
 # autostart
+    # autolock
+    exec_always bash /home/gkeep/scripts/lightsOn.sh
 	# clipboard manager
 	exec --no-startup-id clipster -d
 	# gestures
-	exec --no-startup-id libinput-gestures-setup start	
-	# music player daemon
-	exec --no-startup-id mpd
-	# notifications
-	exec --no-startup-id dunst
-	# hide cursor after 3 sec
+	exec --no-startup-id libinput-gestures-setup start
+	# notifications daemon
+    exec --no-startup-id dunst
+    # hide cursor after 3 sec
 	exec unclutter --timeout 3
-	# blue light filter
-	#exec blugon --backend xgamma --fade 
 	# compositor
 	exec --no-startup-id compton --backend glx --vsync opengl-swc --config ~/.config/compton/compton.conf
