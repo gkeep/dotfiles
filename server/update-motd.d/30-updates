@@ -1,0 +1,21 @@
+#!/bin/bash
+if [ -f "/tmp/apt_pkg.temp" ]; then
+        rm -rf /tmp/apt_pkg.temp
+fi
+
+pkg=`apt-get -V -s dist-upgrade | grep --color=never "=>" | sed 's/   /  /g' >> /tmp/apt_pkg.temp`
+
+get_pkg=`cat /tmp/apt_pkg.temp`
+
+W="\e[0;39m"
+R="\e[0;31m"
+G="\e[0;32m"
+
+$pkg
+
+printf "updates:\n"
+if [ -e "/tmp/apt_pkg.temp" ] && [ -s "/tmp/apt_pkg.temp" ]; then
+	printf "$R$get_pkg$W\n"
+else
+	printf "$G  no updates available$W\n"
+fi
