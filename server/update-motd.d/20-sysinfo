@@ -23,4 +23,4 @@ $W  Load......: $G$LOAD1$W (1m), $G$LOAD5$W (5m), $G$LOAD15$W (15m)
 $W  Processes.:$W $G$PROCESS_ROOT$W (root), $G$PROCESS_USER$W (user) | $G$PROCESS_ALL$W (total)
 
 $W  CPU.......: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
-$W  Memory....: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
+$W  Memory....: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W\n"
