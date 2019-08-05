@@ -1,6 +1,7 @@
+# vim: ft=i3config
 set $mod Mod4
 
-new_window pixel 1
+new_window pixel 2
 new_float normal
 
 hide_edge_borders none
@@ -9,25 +10,25 @@ bindsym $mod+u border none
 bindsym $mod+y border pixel 5
 bindsym $mod+n border normal
 
-font pango:Monospace
+font pango:Fira Code Retina 12
 
 floating_modifier $mod
 
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run -p "RUN:"
 
-bindsym $mod+Ctrl+m exec alacritty -e 'alsamixer'
+bindsym $mod+Ctrl+m exec kitty -e 'alsamixer'
 exec --no-startup-id pulseaudio
 
-bindsym $mod+F1 exec alacritty -e ranger
+bindsym $mod+F1 exec kitty -e ranger
 bindsym $mod+F2 exec firefox 
-bindsym $mod+F3 exec joplin-desktop < /dev/null
+bindsym $mod+F3 exec kitty -e nnn
 bindsym $mod+F4 exec telegram-desktop < /dev/null
-bindsym $mod+F5 exec alacritty -e ncmpcpp 
-bindsym $mod+grave exec alacritty -e gotop
+bindsym $mod+F5 exec kitty -e ncmpcpp 
+bindsym $mod+grave exec kitty -e gotop
 
 focus_follows_mouse yes 
 
@@ -36,9 +37,6 @@ bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
-
-# alt+tab-like fuctionality
-bindsym Mod1+Tab exec rofi -modi combi -combi-modi window -show combi
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -52,7 +50,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
+bindsym Mod1+Tab workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
@@ -133,11 +131,11 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
-assign [class="Firefox"] $ws2
+assign [class="firefox"] $ws2
 assign [class="ckb-next"] $ws6
 
 # Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="alsamixer"] floating enable border pixel 1 resize set 504 896
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
@@ -152,7 +150,7 @@ bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod+0 exec clearine
+bindsym $mod+0 exec bash ~/.dwm/dmenuexit
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -170,43 +168,19 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-exec --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on 
 exec_always --no-startup-id xautolock -time 5 -locker blurlock
 
 exec --no-startup-id bash /home/gkeep/.config/polybar/launch.sh
 
-# bar {   
-#     status_command bumblebee-status -m battery sensors mpd date time brightness amixer -p time.format="%H:%M:%S" date.format="%A, %B %d %Y" date.left-click="gsimplecal" -t iceberg-dark-powerline
-# 	i3bar_command i3bar
-# 	position top
-# 	height 25
-# 	tray_output eDP1
-# 	font pango: DejaVu Sans Mono for Powerline, Font Awesome 9
-# 	strip_workspace_numbers no 
-# 
-#         colors {
-# 	background #161821
-# 	statusline #c6c8d1
-# 	separator  #c6c8d1
-# 
-# #                       border  backgr. text
-# 	focused_workspace   #161821 #c6c8d1 #161821
-# 	active_workspace    #b4be82 #b4be82 #161821
-# 	inactive_workspace  #161821 #161821 #d2d4de
-# 	urgent_workspace    #b4be82 #b4be82 #161821
-#   
-#     }
-# }
-
 bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #b1b2c0 #b1b2c0 #0f1117 #FDF6E3 
-  client.focused_inactive #0f1117 #0f1117 #ffffff #454948
-  client.unfocused        #0f1117 #0f1117 #ffffff #454948
-  client.urgent           #b4be82 #b4be82 #0f1117 #268BD2
+  client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6 
+  client.focused_inactive #161821 #161821 #ffffff #454948
+  client.unfocused        #161821 #161821 #ffffff #454948
+  client.urgent           #b4be82 #b4be82 #161821 #268BD2
   client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
   client.background       #161821
@@ -221,7 +195,7 @@ smart_borders on
 
 # user customization
 	# apply wallpaper
-	exec_always feh --bg-fill /home/gkeep/.wallpaper/eXgsREN.jpg 
+	exec_always feh --bg-fill /home/gkeep/.wallpaper/trainglify1.png 
 	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
@@ -229,6 +203,10 @@ smart_borders on
 	# launch clipboard manager
 	bindsym $mod+c exec clipster -sp
 # autostart
+    # networkmanager applet
+    exec --no-startup-id nm-applet
+    # bluetooth applet
+    #exec --no-startup-id blueman-applet
     # autolock
     exec_always bash /home/gkeep/scripts/lightsOn.sh
 	# clipboard manager
