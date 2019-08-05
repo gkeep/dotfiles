@@ -1,8 +1,0 @@
-MAILTO = ""
-# Edit this file to introduce tasks to be run by cron.
-# m h  dom mon dow   command
-@reboot /usr/bin/deluged
-@reboot /usr/bin/deluge-web
-
-# update apt package lists every 15 minutes, required for updates motd module
-*/15 * * * * apt-get upgrade --assume-no
