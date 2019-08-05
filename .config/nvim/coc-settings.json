@@ -24,8 +24,7 @@
       "bash": {
         "command": "bash-language-server",
         "args": ["start"],
-        "filetypes": ["sh"],
-        "ignoredRootPaths": ["~"]
+        "filetypes": ["sh"]
       },
       "python": {
       "command": "python",
@@ -74,7 +73,7 @@
               "enabled": true
             },
             "pycodestyle": {
-              "enabled": true
+              "enabled": false
             },
             "pydocstyle": {
               "enabled": false,

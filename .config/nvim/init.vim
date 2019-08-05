@@ -2,6 +2,7 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 let mapleader = " "
+set mouse=a
 
 if executable('tmux') && filereadable(expand('~/.zshrc')) && $TMUX !=# ''
     let g:VIM_Is_In_Tmux = 1
@@ -13,30 +14,21 @@ else
 endif
 
 call plug#begin('~/.vim/plugged')
-    " intellisense engline and linting
+    " intellisense engine and linting
     Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-	Plug 'w0rp/ale'
+	Plug 'dense-analysis/ale'
 
     " lightline plugins
 	Plug 'itchyny/lightline.vim'
     Plug 'itchyny/vim-gitbranch'
     Plug 'macthecadillac/lightline-gitdiff'
     Plug 'maximbaz/lightline-ale'
-    Plug 'sinetoami/lightline-neomake'
-    Plug 'Palpatineli/lightline-lsc-nvim'
-	Plug 'sainnhe/artify.vim'
     Plug 'albertomontesg/lightline-asyncrun'
 
     " tmux
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'sainnhe/tmuxline.vim'
-    
-    " nerdtree
-    Plug 'scrooloose/nerdtree'
-	Plug 'tsony-tsonev/nerdtree-git-plugin'
-	Plug 'ryanoasis/vim-devicons'
-	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-	
+
     " fuzzy finding
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
@@ -44,14 +36,23 @@ call plug#begin('~/.vim/plugged')
     " visuals
     Plug 'yuttie/comfortable-motion.vim'
     Plug 'cocopon/iceberg.vim'
+    Plug 'gkeep/iceberg-dark'
+    Plug 'ryanoasis/vim-devicons'
     
     " else
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-obsession'
 	Plug 'tpope/vim-commentary'
-	Plug 'miyakogi/livemark.vim'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
   	Plug 'mboughaba/i3config.vim'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'mhinz/vim-startify'
+
+    Plug 'liuchengxu/vista.vim'
+    Plug 'segeljakt/vim-silicon'
+
+    Plug 'junegunn/goyo.vim'
+    Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
@@ -74,48 +75,46 @@ let s:screen_lg = 120
 let s:screen_xl = 150
 
 let g:VIM_Linter = 'ale'
-if g:VIM_Linter ==# 'ale'
-    Plug 'w0rp/ale'
-    Plug 'maximbaz/lightline-ale'
-elseif g:VIM_Linter ==# 'neomake'
-    Plug 'neomake/neomake'
-    Plug 'sinetoami/lightline-neomake'
-    if g:VIM_LSP_Client ==# 'lcn'
-        Plug 'Palpatineli/lightline-lsc-nvim'
-    endif
-endif
-
-if g:VIM_Linter ==# 'ale'
-    let g:Lightline_Linter = [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]
-elseif g:VIM_Linter ==# 'neomake'
-    let g:Lightline_Linter = [ 'neomake_warnings', 'neomake_errors', 'neomake_infos', 'neomake_ok', 'lsc_ok', 'lsc_errors', 'lsc_checking', 'lsc_warnings' ]
-endif
-
-aug i3config_ft_detection
-  au!
-  au BufNewFile,BufRead ~/.config/i3/config set filetype=i3config
-aug end
+let g:Lightline_Linter = [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]
 
 source ~/.config/nvim/lib/lightline.vimrc
-"source ~/.config/nvim/lib/tmuxline.vimrc
-
-let g:comfortable_motion_scroll_down_key = "j"
-let g:comfortable_motion_scroll_up_key = "k"
 
 let g:NERDTreeGitStatusNodeColorization = 1                                                         
 let g:NERDTreeGitStatusWithFlags = 1
 
-" nvim-gtk settings
-if exists('g:GtkGuiLoaded')
-	call rpcnotify(1, 'Gui', 'Font', 'FuraCode Nerd Font 10'),
-	let NVIM_GTK_NO_HEADERBAR = 1
-	let g:GuiInternalClipboard = 1
-endif
+" vista settings
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'ctags'
+let g:vista_executive_for = {
+\   'go': 'ctags',
+\   'python': 'coc',
+\   }
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" goyo + limelight
+nmap <leader>n :Goyo<cr>
+xmap <leader>n :Goyo!<cr>
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" startify settings
+let g:startify_lists = [
+ \ { 'type': 'files',   'header': ['   Recently used files:'] },
+ \ { 'type': 'dir',     'header': ['   Recently used files in this directory:'] }
+ \ ]
+
+" MAPPINGS
+" vista
+map <silent><C-s> :Vista!!<CR>
+
+" comfortable scrolling
+let g:comfortable_motion_scroll_down_key = "j"
+let g:comfortable_motion_scroll_up_key = "k"
 
 " fzf
 nmap <leader>f :Files<cr>
