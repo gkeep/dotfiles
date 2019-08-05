@@ -1,0 +1,208 @@
+[color]
+base-bg     = #8c0a0a0a
+glyph-bg    = #de0a0a0a
+module-bg   = #f00a0a0a
+selected-bg = #dc1a1a1a
+
+text-fg = #c8c8c8
+
+red     = #821717
+orange  = #824517
+
+[layout]
+icon-font = 2
+
+icon-padding = 1
+module-padding = 2
+
+bar-format = %{T4}%fill%%indicator%%{F#dc404040}%empty%%{F-}%{T-}
+bar-fill-icon = ﭳ 
+
+[bar/bar]
+monitor = eDP1
+width = 100%
+height = 25
+fixed-center = true
+
+background = #af0f1117
+foreground = #c6c8d1
+
+line-size = 3
+line-color = #f00
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 1  
+
+font-0 = DejaVu Sans Mono for Powerline:pixelsize=10:antialias=true;3
+font-1 = DejaVu Sans Mono Nerd Font:pixelsize=10:antialias=true;3
+font-2 = icomoon\-feather:style=Medium:size=10;3
+
+modules-left = left-end-top i3 right-end-top
+modules-right = left-end-bottom battery right-end-top player-mpris-tail xkeyboard date backlight pulseaudio 
+
+tray-position = right
+tray-padding = 2
+
+wm-restack = i3
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[generic-format-style]
+format-background = ${color.module-bg}
+format-padding = ${layout.module-padding}
+
+format-prefix-font = ${layout.icon-font}
+format-prefix-foreground = ${color.icon-fg}
+format-prefix-padding-right = ${layout.icon-padding}
+
+[module/decor-glyph]
+type = custom/text
+
+[module/left-end-top]
+inherit = module/decor-glyph
+content = "%{T3}%{T-}"
+content-foreground = #0f1117
+
+[module/right-end-top]
+inherit = module/decor-glyph
+content = "%{T3}%{T-}"
+
+[module/left-end-bottom]
+inherit = module/decor-glyph
+content = "%{T3}%{T-}"
+
+[module/right-end-bottom]
+inherit = module/decor-glyph
+content = "%{T3}%{T-}"
+
+[module/player-mpris-tail]
+inherit = generic-format-style
+type = custom/script
+exec = ~/polybar-scripts/player-mpris-tail.py --icon-playing "" --icon-paused "" -f '{icon} {artist} - {:t30:{title}:}'
+tail = true
+label = %output%
+click-left = ~/polybar-scripts/player-mpris-tail.py previous
+click-right = ~/polybar-scripts/player-mpris-tail.py next
+click-middle = ~/polybar-scripts/player-mpris-tail.py play-pause
+
+[module/xwindow]
+type = internal/xwindow
+format = <label>
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+format = <label-layout>
+format-prefix = " "
+label-layout = %layout%
+label-indicator-padding = 2
+label-indicator-margin = 1
+
+[module/i3]
+type = internal/i3
+content-background = #161821 
+index-sort = true
+wrapping-scroll = false
+fuzzy-match = true
+ws-icon-0 = 1
+ws-icon-1 = 2
+ws-icon-2 = 3
+ws-icon-3 = 4
+ws-icon-4 = 5
+ws-icon-5 = 6
+ws-icon-6 = 7
+ws-icon-7 = 8
+ws-icon-8 = 9 
+format = <label-state>
+
+; Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = ${color.selected-bg}
+label-focused-underline = #b2b4be
+label-focused-padding = ${layout.module-padding}
+
+; Inactive workspace on any monitor
+label-unfocused = ${self.label-focused}
+label-unfocused-background = ${color.module-bg}
+label-unfocused-padding = ${layout.module-padding}
+
+; Active workspace on unfocused monitor
+label-visible = ${self.label-focused}
+label-visible-background = ${color.module-bg}
+label-visible-underline = #b2b4be
+label-visible-padding = ${layout.module-padding}
+
+; Workspace with urgency hint set
+label-urgent = ${self.label-focused}
+label-urgent-background = ${color.module-bg}
+label-urgent-underline = ${color.red}
+label-urgent-padding = ${layout.module-padding}
+
+label-mode-background = ${color.module-bg}
+label-mode-padding = ${layout.module-padding}
+
+
+[module/backlight]
+type = internal/xbacklight
+output = eDP1
+format-prefix = " "
+format = <label>
+label = %percentage%%
+
+[module/cpu]
+type = internal/cpu
+interval = 1
+format-prefix = "龍 "
+label = %percentage%%
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+format-connected = <label-connected>
+format-connected-prefix = " "
+label-connected = %essid%
+
+[module/date]
+type = internal/date
+interval = 1
+date = %A, %B %d %Y
+time = %H:%M:%S
+label =  %date%  %time%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+label-muted = muted
+label-muted-foreground = #e27878
+format-volume = <ramp-volume> <label-volume>
+use-ui-max = true
+interval = 1
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 95
+format-full-prefix = " "
+format-full-prefix-foreground = #b4be82
+format-charging = <ramp-capacity> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+label-charging =  %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+
+[global/wm]
+margin-top = 2
+margin-bottom = 2
