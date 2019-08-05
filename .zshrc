@@ -24,6 +24,7 @@ SPACESHIP_PROMPT_ORDER=(
 
  plugins=(
   zsh-autosuggestions
+  git
   git-extras
   colored-man-pages
   fast-syntax-highlighting
@@ -31,12 +32,31 @@ SPACESHIP_PROMPT_ORDER=(
   themes
 )
 
-alias ls="lsd"
+# tmux
 
+# if which tmux >/dev/null 2>&1; then
+#   # if no session is started, start a new session
+#   test -z ${TMUX} && tmux
+#   
+#   # when quitting tmux, try to attach
+#   while test -z ${TMUX}; do
+#       tmux attach || break
+#   done
+# fi
+# 
+# launch_tmux() {
+# [[ $- != *i* ]] && return
+# [[ -z "$TMUX" ]] && exec tmux 
+# 
+# tmux source-file "$HOME/.tmux/tmuxline/iceberg_normal.tmux.conf"
+# tmux source-file "$HOME/.tmux.conf"
+# }
 source $ZSH/oh-my-zsh.sh
 
-export EDITOR='nvim'
-export SSH_KEY_PATH="~/.ssh/rsa_id"
+# fzf
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
 source "/home/gkeep/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
 eval $(thefuck --alias)
@@ -44,3 +64,10 @@ eval $(thefuck --alias)
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# rust
+export PATH="$PATH:$CARGO_HOME/bin"
+source $HOME/.cargo/env
+
+# source aliases
+source $HOME/.aliases
