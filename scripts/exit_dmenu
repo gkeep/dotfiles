@@ -1,0 +1,26 @@
+#!/bin/bash
+# Dmenu shutdown/lock/suspend/reboot menu.
+output=$(echo -e "lock\nlogout\nsuspend\nshutdown\nreboot" | dmenu -p "ACTION:")
+wm=$(echo $XDG_CURRENT_DESKTOP)
+
+case "$output" in
+    logout)
+        if [ "$wm" == "i3" ]; then
+            i3-msg exit
+        elif [ "$wm" == "dwm" ]; then
+            killall -9 dwm
+        fi
+    ;;
+    shutdown)
+        shutdown -h now
+    ;;
+    reboot)
+        reboot
+    ;;
+    suspend)
+        systemctl suspend
+    ;;
+    lock)
+        betterlockscreen -l &
+    ;;
+esac

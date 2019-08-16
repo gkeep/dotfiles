@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+
+export DISPLAY=:0
+
+# current battery percentage
+BAT=$(cat /sys/class/power_supply/BAT0/capacity)
+
+function battery_prompt () {
+    text=$1
+    icon=$2
+    urgency=$3
+
+    notify-send "$text" --icon=$icon --urgency=$urgency
+}
+
+if [[ $BAT = 10 ]] || [[ $BAT -lt 10 ]]
+then
+    battery_prompt "Battery is critically low!" battery-empty urgent
+elif [[ $BAT = 20 ]] || [[ $BAT -lt 20 ]]
+then
+    battery_prompt "Battery is at 20%." battery-empty normal
+elif [[ $BAT = 80 ]] || [[ $BAT -lt 80 ]]
+then
+    battery_prompt "Charged to 80%." battery-full normal
+fi
