@@ -15,7 +15,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
     " intellisense engine and linting
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'dense-analysis/ale'
 
     " lightline plugins
@@ -27,18 +27,19 @@ call plug#begin('~/.vim/plugged')
 
     " tmux
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'sainnhe/tmuxline.vim'
+    Plug 'edkolev/tmuxline.vim'
 
     " fuzzy finding
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
-	
+
     " visuals
     Plug 'yuttie/comfortable-motion.vim'
     Plug 'cocopon/iceberg.vim'
     Plug 'gkeep/iceberg-dark'
     Plug 'ryanoasis/vim-devicons'
-    
+    Plug 'mhinz/vim-startify'
+
     " else
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-obsession'
@@ -46,7 +47,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
   	Plug 'mboughaba/i3config.vim'
     Plug 'jiangmiao/auto-pairs'
-    Plug 'mhinz/vim-startify'
+    Plug 'ntpeters/vim-better-whitespace'
 
     Plug 'liuchengxu/vista.vim'
     Plug 'segeljakt/vim-silicon'
@@ -79,7 +80,7 @@ let g:Lightline_Linter = [ 'linter_checking', 'linter_errors', 'linter_warnings'
 
 source ~/.config/nvim/lib/lightline.vimrc
 
-let g:NERDTreeGitStatusNodeColorization = 1                                                         
+let g:NERDTreeGitStatusNodeColorization = 1
 let g:NERDTreeGitStatusWithFlags = 1
 
 " vista settings
@@ -120,5 +121,5 @@ let g:comfortable_motion_scroll_up_key = "k"
 nmap <leader>f :Files<cr>
 nmap <leader>/ :BLines<cr>
 nmap <leader>b :Buffers<cr>
-nmap <leader>r :Rg  
+nmap <leader>r :Rg<cr>
 nmap <leader>c :Commands<cr>

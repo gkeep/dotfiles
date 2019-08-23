@@ -39,7 +39,7 @@ let g:lightline_gitdiff#indicator_modified = '*'
 let g:lightline_gitdiff#min_winwidth = '70'
 let g:lightline.active = {
             \ 'left': [ [ 'mode', 'paste' ],
-            \           [ 'readonly', 'filename', 'modified' ] ],
+            \           [ 'readonly', 'filename', 'modified', 'gitstatus' ] ],
             \ 'right': [ [ 'devicons_filetype', 'lineinfo' ],
             \            g:Lightline_Linter,
             \           [ 'asyncrun_status' ] ]
