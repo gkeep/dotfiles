@@ -2,7 +2,7 @@ set laststatus=2
 set t_Co=256
 syntax on
 vnoremap <C-c> "*y
-set number nonumber 
+set number nonumber
 set so=5
 set encoding=UTF-8
 set nohlsearch
