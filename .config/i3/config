@@ -1,14 +1,16 @@
 # vim: ft=i3config
 set $mod Mod4
 
-new_window pixel 2
+new_window pixel 0
 new_float normal
+
+# rounded corners
+border_radius 10
 
 hide_edge_borders none
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 5
-bindsym $mod+n border normal
+bindsym $mod+y border pixel 2
 
 font pango:Fira Code Retina 12
 
@@ -18,19 +20,19 @@ bindsym $mod+Return exec kitty
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run -p "RUN:"
+bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
 bindsym $mod+Ctrl+m exec kitty -e 'alsamixer'
 exec --no-startup-id pulseaudio
 
 bindsym $mod+F1 exec kitty -e ranger
-bindsym $mod+F2 exec firefox 
+bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec kitty -e nnn
 bindsym $mod+F4 exec telegram-desktop < /dev/null
-bindsym $mod+F5 exec kitty -e ncmpcpp 
+bindsym $mod+F5 exec kitty -e ncmpcpp
 bindsym $mod+grave exec kitty -e gotop
 
-focus_follows_mouse yes 
+focus_follows_mouse yes
 
 # change focus
 bindsym $mod+j focus left
@@ -143,14 +145,13 @@ for_window [class="Galculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
 for_window [class="bleachbit"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [instance="Farge"] floating enable
 
 bindsym $mod+Shift+c reload
 
 bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-bindsym $mod+0 exec bash ~/.dwm/dmenuexit
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -168,8 +169,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-exec_always --no-startup-id numlockx on 
-exec_always --no-startup-id xautolock -time 5 -locker blurlock
+exec_always --no-startup-id numlockx on
+exec_always --no-startup-id xautolock -time 15 -locker blurlock
 
 exec --no-startup-id bash /home/gkeep/.config/polybar/launch.sh
 
@@ -177,25 +178,29 @@ bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6 
+  client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6
   client.focused_inactive #161821 #161821 #ffffff #454948
   client.unfocused        #161821 #161821 #ffffff #454948
   client.urgent           #b4be82 #b4be82 #161821 #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+  client.placeholder      #000000 #0c0c0c #ffffff #000000
 
   client.background       #161821
 
 #Set inner/outer gaps
-gaps inner 0
-gaps outer 0
+gaps inner 5
+gaps outer 2
 
 smart_gaps on
 
 smart_borders on
 
+# scripts
+bindsym $mod+n exec bash ~/scripts/nordvpn_dmenu
+bindsym $mod+0 exec bash ~/scripts/exit_dmenu
+
 # user customization
 	# apply wallpaper
-	exec_always feh --bg-fill /home/gkeep/.wallpaper/trainglify1.png 
+	exec_always feh --bg-fill /home/gkeep/.wallpaper/trainglify1.png
 	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
