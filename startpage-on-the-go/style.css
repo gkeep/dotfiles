@@ -1,0 +1,31 @@
+/* @font-face {
+     src: url('DejaVuSansMono-webfont.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+} */
+body {
+    background-image: linear-gradient(to right, #84a0c6, #a093c7);
+    font-family: DejaVu Sans Mono;
+    font-size: 15px;
+}
+a:link, a:visited {
+    color: #c6c8d1;
+    text-decoration: none;
+}
+ul {
+    color: #c6c8d1;
+}
+.mother {
+    margin-top: 20%;
+    margin-left: 15%;
+    width: 25%;
+    background-color: #161821;
+    border-color: #c6c8d1;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+    display: inline-flex;
+}
+p {
+    text-align: left;
+}
