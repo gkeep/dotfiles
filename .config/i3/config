@@ -1,16 +1,16 @@
 # vim: ft=i3config
 set $mod Mod4
 
-new_window pixel 0
+new_window pixel 1
 new_float normal
 
 # rounded corners
-border_radius 10
+#border_radius 10
 
 hide_edge_borders none
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 2
+bindsym $mod+y border pixel 5
 
 font pango:Fira Code Retina 12
 
@@ -22,7 +22,6 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
-bindsym $mod+Ctrl+m exec kitty -e 'alsamixer'
 exec --no-startup-id pulseaudio
 
 bindsym $mod+F1 exec kitty -e ranger
@@ -31,6 +30,7 @@ bindsym $mod+F3 exec kitty -e nnn
 bindsym $mod+F4 exec telegram-desktop < /dev/null
 bindsym $mod+F5 exec kitty -e ncmpcpp
 bindsym $mod+grave exec kitty -e gotop
+bindsym $mod+Ctrl+m exec kitty -e pulsemixer
 
 focus_follows_mouse yes
 
@@ -137,7 +137,7 @@ assign [class="firefox"] $ws2
 assign [class="ckb-next"] $ws6
 
 # Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1 resize set 504 896
+for_window [title="pulsemixer"] floating enable resize set 1000 250
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
@@ -151,7 +151,7 @@ bindsym $mod+Shift+c reload
 
 bindsym $mod+Shift+r restart
 
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -170,7 +170,6 @@ mode "resize" {
 }
 
 exec_always --no-startup-id numlockx on
-exec_always --no-startup-id xautolock -time 15 -locker blurlock
 
 exec --no-startup-id bash /home/gkeep/.config/polybar/launch.sh
 
@@ -187,8 +186,8 @@ bindsym $mod+m bar mode toggle
   client.background       #161821
 
 #Set inner/outer gaps
-gaps inner 5
-gaps outer 2
+gaps inner 0
+gaps outer 0
 
 smart_gaps on
 
@@ -202,7 +201,7 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 	# apply wallpaper
 	exec_always feh --bg-fill /home/gkeep/.wallpaper/trainglify1.png
 	# change kb layout
-	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
+	#exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
 	bindsym $mod+Print exec flameshot gui
 	# launch clipboard manager
@@ -218,8 +217,8 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 	exec --no-startup-id clipster -d
 	# gestures
 	exec --no-startup-id libinput-gestures-setup start
-	# notifications daemon
-    exec --no-startup-id dunst
+	# control mpd music
+    exec --no-startup-id mpDris2
     # hide cursor after 3 sec
 	exec unclutter --timeout 3
 	# compositor
