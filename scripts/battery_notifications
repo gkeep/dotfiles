@@ -1,25 +1,36 @@
-#!/usr/bin/bash
+#!/usr/bin/fish
 
-export DISPLAY=:0
+# If charging, exit.
+if test (cat /sys/class/power_supply/BAT0/status) = "Charging"
+    exit
+end
 
-# current battery percentage
-BAT=$(cat /sys/class/power_supply/BAT0/capacity)
+set -x DISPLAY :0
 
-function battery_prompt () {
-    text=$1
-    icon=$2
-    urgency=$3
+# Current battery percentage
+set BAT (cat /sys/class/power_supply/BAT0/capacity)
 
-    notify-send "$text" --icon=$icon --urgency=$urgency
-}
+function battery_prompt
+    set status_id $argv[1]
+    set text $argv[2]
+    set icon $argv[3]
 
-if [[ $BAT = 10 ]] || [[ $BAT -lt 10 ]]
-then
-    battery_prompt "Battery is critically low!" battery-empty urgent
-elif [[ $BAT = 20 ]] || [[ $BAT -lt 20 ]]
-then
-    battery_prompt "Battery is at 20%." battery-empty normal
-elif [[ $BAT = 80 ]] || [[ $BAT -lt 80 ]]
-then
-    battery_prompt "Charged to 80%." battery-full normal
-fi
+    # Exit function if user has seen this dialog
+    set current_status_id (cat /tmp/battery_script_status 2> /dev/null)
+    if test $status_id = $current_status_id 2> /dev/null
+        return
+    end
+
+    dunstify "$text" \
+    --icon=$icon
+end
+
+if test $BAT -le 5
+    battery_prompt 2 "Battery is critically low!" battery-empty
+    echo "2" > /tmp/battery_script_status
+else if test $BAT -le 20
+    battery_prompt 1 "Battery is at 20%." battery-low
+    echo "1" > /tmp/battery_script_status
+else
+    echo "0" > /tmp/battery_script_status
+end

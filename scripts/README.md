@@ -1,9 +1,7 @@
 ## My collection of scripts
 
 #### battery_notifications
-Port of [this script](https://www.reddit.com/r/UsabilityPorn/comments/cohogi/usability_tip_hack_together_a_low_battery_warning/) from fish to bash with a bit of personal preference.
-
-To enable add `* * * * * /usr/bin/bash /home/<path to the script>/battery_notifications` to your crontab.
+[This script](https://www.reddit.com/r/UsabilityPorn/comments/cohogi/usability_tip_hack_together_a_low_battery_warning/), but using dunst as notification daemon.
 
 ### dmenu scripts:
 
@@ -31,3 +29,4 @@ Script to easily install termite on Void Linux.
 
 #### colorcheck
 Print all 256 colors. Use this to check if your terminal emulator supports 256 colors.
+
