@@ -1,5 +1,8 @@
 ## My collection of scripts
 
+#### update-dotfiles
+Bash script to update dotfiles to your repo's location using `rsync`.
+
 #### battery_notifications
 [This script](https://www.reddit.com/r/UsabilityPorn/comments/cohogi/usability_tip_hack_together_a_low_battery_warning/), but using dunst as notification daemon.
 
