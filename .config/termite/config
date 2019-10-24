@@ -1,9 +1,9 @@
 [options]
 allow_bold = true
-#audible_bell = false
+audible_bell = false
 #clickable_url = true
 #dynamic_title = true
-font = Fura Code Nerd Font 11
+font = Fura Code Nerd Font 12
 #fullscreen = true
 #geometry = 640x480
 #icon_name = terminal
@@ -15,16 +15,16 @@ font = Fura Code Nerd Font 11
 scrollback_lines = 10000
 #search_wrap = true
 #urgent_on_bell = true
-#hyperlinks = false
+hyperlinks = true
 
 # $BROWSER is used by default if set, with xdg-open as a fallback
 #browser = xdg-open
 
 # "system", "on" or "off"
-cursor_blink = off
+cursor_blink = on
 
 # "block", "underline" or "ibeam"
-#cursor_shape = block
+cursor_shape = ibeam
 
 # Hide links that are no longer valid in url select overlay mode
 #filter_unmatched_urls = true
