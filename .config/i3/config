@@ -4,9 +4,6 @@ set $mod Mod4
 new_window pixel 1
 new_float normal
 
-# rounded corners
-#border_radius 10
-
 hide_edge_borders none
 
 bindsym $mod+u border none
@@ -201,12 +198,16 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 	# apply wallpaper
 	exec_always feh --bg-fill /home/gkeep/.wallpaper/trainglify1.png
 	# change kb layout
-	#exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
+	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
 	bindsym $mod+Print exec flameshot gui
 	# launch clipboard manager
 	bindsym $mod+c exec clipster -sp
 # autostart
+	# notification daemon
+    exec --no-startup-id dunst
+	# mpd notifications
+    exec --no-startup-id mpDris2
     # networkmanager applet
     exec --no-startup-id nm-applet
     # bluetooth applet
@@ -217,8 +218,6 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 	exec --no-startup-id clipster -d
 	# gestures
 	exec --no-startup-id libinput-gestures-setup start
-	# control mpd music
-    exec --no-startup-id mpDris2
     # hide cursor after 3 sec
 	exec unclutter --timeout 3
 	# compositor
