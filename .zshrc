@@ -40,9 +40,7 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
-source "/home/gkeep/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
