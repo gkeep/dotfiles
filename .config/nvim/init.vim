@@ -2,7 +2,7 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 let mapleader = " "
-"set mouse=a
+set mouse=a
 
 if executable('tmux') && filereadable(expand('~/.zshrc')) && $TMUX !=# ''
     let g:VIM_Is_In_Tmux = 1
@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
     " intellisense engine and linting
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'dense-analysis/ale'
+    Plug 'rust-lang/rust.vim'
 
     " git integrations
     Plug 'itchyny/vim-gitbranch'

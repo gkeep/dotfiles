@@ -1,4 +1,5 @@
 {
+"rust-analyzer.enableCargoWatchOnStartup": true,
 "git.branchCharacter": "",
 "git.changedDecorator": "*",
 "git.conflictedDecorator": "",
