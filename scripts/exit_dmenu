@@ -21,6 +21,6 @@ case "$output" in
         systemctl suspend
     ;;
     lock)
-        betterlockscreen -l &
+        betterlockscreen -l blur &
     ;;
 esac
