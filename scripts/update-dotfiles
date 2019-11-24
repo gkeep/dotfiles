@@ -5,14 +5,15 @@ export REPO_LOCATION="$HOME/git/dotfiles" # your dotfiles repo location here
 
 # to add a file/folder specify its locaion using $HOME or $XDG_CONFIG_HOME here
 declare -a FILES=( $HOME/.config/alacritty \
+    $HOME/.config/compton \
     $HOME/.config/dunst \
     $HOME/.config/i3 \
     $HOME/.config/kitty \
     $HOME/.config/libinput-gestures.conf \
     $HOME/.config/mpd \
     $HOME/.config/ncmpcpp \
+    $HOME/.config/neofetch \
     $HOME/.config/nvim \
-    $HOME/.config/picom \
     $HOME/.config/polybar \
     $HOME/.config/termite \
     $HOME/.aliases \
