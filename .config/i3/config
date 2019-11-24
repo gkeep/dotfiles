@@ -183,8 +183,8 @@ bindsym $mod+m bar mode toggle
   client.background       #161821
 
 #Set inner/outer gaps
-gaps inner 0
-gaps outer 0
+gaps inner 2
+gaps outer 3
 
 smart_gaps on
 
@@ -196,7 +196,7 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 
 # user customization
 	# apply wallpaper
-	exec_always feh --bg-fill /home/gkeep/.wallpaper/trainglify1.png
+	exec_always feh --bg-fill /home/gkeep/.wallpaper/*
 	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
@@ -212,8 +212,6 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
     exec --no-startup-id nm-applet
     # bluetooth applet
     #exec --no-startup-id blueman-applet
-    # autolock
-    exec_always bash /home/gkeep/scripts/lightsOn.sh
 	# clipboard manager
 	exec --no-startup-id clipster -d
 	# gestures
@@ -221,4 +219,4 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
     # hide cursor after 3 sec
 	exec unclutter --timeout 3
 	# compositor
-	exec --no-startup-id compton --backend glx --vsync opengl-swc --config ~/.config/compton/compton.conf
+	exec --no-startup-id picom
