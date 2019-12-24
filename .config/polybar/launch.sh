@@ -8,4 +8,4 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch Polybar
 polybar -c ~/.config/polybar/config.ini top &
-polybar -c ~/.config/polybar/config.ini bottom &
+#polybar -c ~/.config/polybar/config.ini bottom &
