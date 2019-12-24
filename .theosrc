@@ -1,0 +1,6 @@
+# vim: ft=make
+DEBUG = 1
+THEOS_DEVICE_IP = 192.168.31.244
+TARGET = iphone:11.2:11.0
+
+ARCHS = arm64

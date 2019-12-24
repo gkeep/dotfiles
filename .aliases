@@ -11,3 +11,6 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # please is a "sudo !!" alias
 alias please='sudo $(fc -ln -1)'
+
+# theos
+export THEOS=/opt/theos
