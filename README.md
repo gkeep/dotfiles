@@ -4,6 +4,6 @@
 
 ## startpage
 
-A simple startpage with frequently visited websites and duckduckgo search bar.
+A simple startpage with frequently visited websites.
 
 ![startpage](screenshots/startpagescrot.png)
