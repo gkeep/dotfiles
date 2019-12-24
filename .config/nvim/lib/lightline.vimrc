@@ -1,19 +1,9 @@
-function! ObsessionStatusEnhance() abort
-    if ObsessionStatus() ==# '[$]'
-        " return \uf94a
-        return '⏺'
-    else
-        " return \uf949
-        return '⏹'
-    endif
-endfunction
-function! Devicons_Filetype()"
-    " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
+function! Devicons_Filetype()
     return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction"
-function! Devicons_Fileformat()"
+endfunction
+function! Devicons_Fileformat()
     return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction"
+endfunction
 set laststatus=2  " Basic
 set noshowmode  " Disable show mode info
 augroup Lightline_Au
@@ -68,9 +58,7 @@ let g:lightline.component = {
             \ 'gitbranch' : '%{gitbranch()}',
             \ 'gitstatus' : '%{lightline_gitdiff#get_status()}',
             \ 'bufinfo': '%{bufname("%")}:%{bufnr("%")}',
-            \ 'obsession': '%{ObsessionStatusEnhance()}',
             \ 'vim_logo': "\ue7c5",
-            \ 'nicewinnumber': '%{NegativeCircledNumber(tabpagewinnr(tabpagenr()))}',
             \ 'mode': '%{lightline#mode()}',
             \ 'absolutepath': '%F',
             \ 'relativepath': '%f',
@@ -85,14 +73,10 @@ let g:lightline.component = {
             \ 'readonly': '%R',
             \ 'charvalue': '%b',
             \ 'charvaluehex': '%B',
-            \ 'percent': '%2p%%',
-            \ 'percentwin': '%P',
             \ 'spell': '%{&spell?&spelllang:""}',
             \ 'lineinfo': '%2p%% %3l:%-2v',
             \ 'line': '%l',
             \ 'column': '%c',
-            \ 'close': '%999X X ',
-            \ 'winnr': '%{winnr()}'
             \ }
 let g:lightline.component_function = {
             \ 'gitbranch': 'gitbranch#name',

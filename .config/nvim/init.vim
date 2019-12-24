@@ -20,9 +20,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'rust-lang/rust.vim'
 
     " git integrations
-    Plug 'itchyny/vim-gitbranch'
     Plug 'macthecadillac/lightline-gitdiff'
-    Plug 'rhysd/git-messenger.vim'
+    Plug 'tpope/vim-fugitive'
 
     " lightline plugins
 	Plug 'itchyny/lightline.vim'
@@ -75,6 +74,9 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+" treat logos as obj-c
+au BufRead,BufNewFile *.xm set filetype=objc
+
 let s:screen_xs = 30
 let s:screen_sm = 60
 let s:screen_md = 80
@@ -85,9 +87,6 @@ let g:VIM_Linter = 'ale'
 let g:Lightline_Linter = [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]
 
 source ~/.config/nvim/lib/lightline.vimrc
-
-let g:NERDTreeGitStatusNodeColorization = 1
-let g:NERDTreeGitStatusWithFlags = 1
 
 " vista settings
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
@@ -115,7 +114,6 @@ let g:startify_lists = [
  \ { 'type': 'dir',     'header': ['   Recently used files in this directory:'] }
  \ ]
 
-" MAPPINGS
 " vista
 map <silent><C-s> :Vista!!<CR>
 
