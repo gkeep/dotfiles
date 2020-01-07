@@ -9,8 +9,8 @@ export NNN_SSHFS_OPTS="sshfs -o follow_symlinks"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-# please is a "sudo !!" alias
-alias please='sudo $(fc -ln -1)'
+# custom bin loacitons
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
 # theos
 export THEOS=/opt/theos

@@ -7,7 +7,6 @@ plugins=(
    zsh-autosuggestions
    git
    git-extras
-   colored-man-pages
    fast-syntax-highlighting
    command-not-found
    themes
@@ -39,8 +38,6 @@ source $ZSH/oh-my-zsh.sh
 # fzf
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
-
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
