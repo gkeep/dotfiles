@@ -1,5 +1,12 @@
 {
 "rust-analyzer.enableCargoWatchOnStartup": true,
+// Show diagnostics produced by rust-analyzer itself.
+"lsp.diagnostics": false,
+// Automatically insert `()` and `<>` when completing functions and types.
+"completion.insertion.add-call-parenthesis": true,
+// Enable completions like `.if`, `.match`, etc.
+"completion.enable-postfix": true,
+
 "git.branchCharacter": "",
 "git.changedDecorator": "*",
 "git.conflictedDecorator": "",
@@ -11,6 +18,8 @@
 "git.removedSign.hlGroup": "GitGutterDelete",
 "git.topRemovedSign.hlGroup": "GitGutterDelete",
 "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+"git.enableGutters": true,
+
 "languageserver": {
     "ccls": {
         "command": "ccls",
@@ -22,11 +31,13 @@
            }
          }
       },
+
       "bash": {
         "command": "bash-language-server",
         "args": ["start"],
         "filetypes": ["sh"]
       },
+
       "python": {
       "command": "python",
       "args": [
@@ -94,6 +105,5 @@
         }
       }
     }
-},
-"git.enableGutters": true
+}
 }

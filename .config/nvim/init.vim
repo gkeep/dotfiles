@@ -12,6 +12,7 @@ if executable('tmux') && filereadable(expand('~/.zshrc')) && $TMUX !=# ''
 else
     let g:VIM_Is_In_Tmux = 0
 endif
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 call plug#begin('~/.vim/plugged')
     " intellisense engine and linting
@@ -37,9 +38,10 @@ call plug#begin('~/.vim/plugged')
 	Plug 'junegunn/fzf.vim'
 
     " visuals
-    Plug 'yuttie/comfortable-motion.vim'
     Plug 'cocopon/iceberg.vim'
     Plug 'gkeep/iceberg-dark'
+
+    Plug 'yuttie/comfortable-motion.vim'
     Plug 'ryanoasis/vim-devicons'
     Plug 'mhinz/vim-startify'
 
@@ -61,8 +63,6 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 colorscheme iceberg
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set expandtab
 set tabstop=4
