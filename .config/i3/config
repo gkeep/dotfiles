@@ -19,11 +19,11 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
-bindsym $mod+F1 exec kitty -e ranger
+bindsym $mod+F1 exec kitty -e nnn
 bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec kitty -e nnn
+bindsym $mod+F3 exec pcmanfm
 bindsym $mod+F4 exec telegram-desktop < /dev/null
-bindsym $mod+F5 exec kitty -e ncmpcpp
+bindsym $mod+F5 exec kitty -e spt
 bindsym $mod+F6 exec spotify
 bindsym $mod+grave exec kitty -e gotop
 bindsym $mod+Ctrl+m exec kitty -e pulsemixer
@@ -97,7 +97,7 @@ bindsym $mod+Ctrl+Left workspace prev
 set $ws1 "1: term"
 set $ws2 "2: web"
 set $ws3 "3: code"
-set $ws4 "4: server"
+set $ws4 "4: ssh"
 set $ws5 "5: music"
 set $ws6 "6: rnd"
 set $ws7 "7: rnd"
@@ -136,18 +136,12 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
 assign [class="firefox"] $ws2
-assign [class="ckb-next"] $ws6
 
 # Open specific applications in floating mode
 for_window [title="pulsemixer"] floating enable resize set 1000 250
-for_window [class="calamares"] floating enable border normal
-for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
-for_window [class="GParted"] floating enable border normal
 for_window [class="bleachbit"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [instance="Farge"] floating enable
 
 bindsym $mod+Shift+c reload
 
@@ -171,13 +165,30 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-exec_always --no-startup-id numlockx on
-
-exec --no-startup-id bash /home/gkeep/.config/polybar/launch.sh
-
 bindsym $mod+m bar mode toggle
+bar {
+    status_command bumblebee-status -m battery spotify brightness pasink time date -p time.format="%H:%M" date.format="%A, %B %d" -t iceberg-dark-powerline
+	i3bar_command i3bar
+	position top
+	height 25
+	tray_output eDP1
+	font pango: Iosevka Nerd Font, Font Awesome 12
+	strip_workspace_numbers no
+    mode hide
 
-# Theme colors
+    colors {
+	    background #161821
+	    statusline #c6c8d1
+	    separator  #c6c8d1
+
+#                           border  backgr. text
+	    focused_workspace   #161821 #c6c8d1 #161821
+	    active_workspace    #b4be82 #b4be82 #161821
+	    inactive_workspace  #161821 #161821 #d2d4de
+	    urgent_workspace    #b4be82 #b4be82 #161821
+    }
+}
+
 # class                   border  backgr. text    indic.   child_border
   client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6
   client.focused_inactive #161821 #161821 #ffffff #454948
@@ -188,8 +199,8 @@ bindsym $mod+m bar mode toggle
   client.background       #161821
 
 #Set inner/outer gaps
-gaps inner 2
-gaps outer 3
+gaps inner 0
+gaps outer 0
 
 smart_gaps on
 
@@ -237,7 +248,7 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 
 # user customization
 	# apply wallpaper
-	exec_always feh --bg-fill /home/gkeep/.wallpaper/*
+	exec_always feh --bg-fill --randomize /home/gkeep/.wallpaper/*
 	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
@@ -247,17 +258,17 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 # autostart
 	# notification daemon
     exec --no-startup-id dunst
+    # always start with numlock on
+    exec --no-startup-id xdotool key --clearmodifiers Num_Lock
 	# mpd notifications
     exec --no-startup-id mpDris2
     # networkmanager applet
     exec --no-startup-id nm-applet
-    # bluetooth applet
-    #exec --no-startup-id blueman-applet
 	# clipboard manager
 	exec --no-startup-id clipster -d
-	# gestures
+	# touchpad gestures
 	exec --no-startup-id libinput-gestures-setup start
     # hide cursor after 3 sec
-	exec unclutter --timeout 3
+	exec --no-startup-id unclutter --timeout 3
 	# compositor
-	exec --no-startup-id picom
+    exec --no-startup-id picom
