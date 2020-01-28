@@ -1,12 +1,7 @@
-/* @font-face {
-     src: url('DejaVuSansMono-webfont.woff') format('woff');
-     font-weight: normal;
-     font-style: normal;
-} */
 body {
     background-image: linear-gradient(to right, #84a0c6, #a093c7);
-    font-family: DejaVu Sans Mono;
-    font-size: 15px;
+    font-family: Fira Code;
+    font-size: 16px;
 }
 a:link, a:visited {
     color: #c6c8d1;
@@ -16,7 +11,7 @@ ul {
     color: #c6c8d1;
 }
 .mother {
-    margin-top: 20%;
+    margin-top: 18%;
     margin-left: 15%;
     width: 25%;
     background-color: #161821;
