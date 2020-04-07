@@ -1,0 +1,38 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export EDITOR:nvim
+SETUVAR --export PAGER:less
+SETUVAR __fish_init_2_39_8:\x1d
+SETUVAR __fish_init_2_3_0:\x1d
+SETUVAR __fish_init_3_x:\x1d
+SETUVAR __fish_initialized:3100
+SETUVAR fish_color_autosuggestion:646e97
+SETUVAR fish_color_cancel:normal
+SETUVAR fish_color_command:b4be82
+SETUVAR fish_color_comment:555c7f
+SETUVAR fish_color_cwd:008000
+SETUVAR fish_color_cwd_root:800000
+SETUVAR fish_color_end:84a0c6
+SETUVAR fish_color_error:e27878
+SETUVAR fish_color_escape:00a6b2
+SETUVAR fish_color_history_current:normal
+SETUVAR fish_color_host:normal
+SETUVAR fish_color_host_remote:yellow
+SETUVAR fish_color_match:normal
+SETUVAR fish_color_normal:normal
+SETUVAR fish_color_operator:84a0c6
+SETUVAR fish_color_param:e4e4e4
+SETUVAR fish_color_quote:e2a478
+SETUVAR fish_color_redirection:eeeeee
+SETUVAR fish_color_search_match:ffff00
+SETUVAR fish_color_selection:c0c0c0
+SETUVAR fish_color_status:red
+SETUVAR fish_color_user:00ff00
+SETUVAR fish_color_valid_path:normal
+SETUVAR fish_greeting:\x1d
+SETUVAR fish_key_bindings:fish_default_key_bindings
+SETUVAR fish_pager_color_completion:normal
+SETUVAR fish_pager_color_description:B3A06D\x1eyellow
+SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_user_paths:/home/gkeep/\x2efzf/bin
