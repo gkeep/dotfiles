@@ -7,7 +7,18 @@ set so=5
 set encoding=UTF-8
 set nohlsearch
 
-colorscheme default
+call plug#begin('~/.vim/plugged')
+"
+    " visuals
+    Plug 'gkeep/iceberg.vim'
+    Plug 'gkeep/iceberg-dark'
+
+call plug#end()
+
+colorscheme iceberg
+set background=light
+let g:lightline = { 'colorscheme': 'iceberg' }
+
 
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
