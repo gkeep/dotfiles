@@ -4,8 +4,11 @@
 export REPO_LOCATION="$HOME/git/dotfiles" # your dotfiles repo location here
 
 # to add a file/folder specify its locaion using $HOME or $XDG_CONFIG_HOME here
-declare -a FILES=( $HOME/.config/alacritty \
+declare -a FILES=( 
+    $HOME/.config/autorandr/postswitch \
     $HOME/.config/dunst \
+    $HOME/.config/fish/config.fish \
+    $HOME/.config/fish/fish_variables \
     $HOME/.config/i3 \
     $HOME/.config/kitty \
     $HOME/.config/libinput-gestures.conf \
@@ -13,13 +16,10 @@ declare -a FILES=( $HOME/.config/alacritty \
     $HOME/.config/ncmpcpp \
     $HOME/.config/nvim \
     $HOME/.config/picom \
-    $HOME/.config/polybar \
-    $HOME/.config/termite \
-    $HOME/.aliases \
+    $HOME/.profile \
     $HOME/.vimrc \
     $HOME/.zshrc \
     $HOME/.tmux.conf \
-    $HOME/.theosrc \
     $HOME/scripts)
 
 for i in "${FILES[@]}"
