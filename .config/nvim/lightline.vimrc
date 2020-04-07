@@ -1,20 +1,13 @@
-function! Devicons_Filetype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-function! Devicons_Fileformat()
-    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
 set laststatus=2  " Basic
 set noshowmode  " Disable show mode info
 augroup Lightline_Au
     autocmd!
     autocmd BufWritePost * call lightline_gitdiff#query_git() | call lightline#update()
 augroup END
-let g:lightline = { 'colorscheme': 'icebergDark' }
-let g:lightline.separator = { 'left': "\ue0b8", 'right': "\ue0be" }
-let g:lightline.subseparator = { 'left': "\ue0b9", 'right': "\ue0b9" }
-let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
-let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
+"let g:lightline.separator = { 'left': "\ue0b8", 'right': "\ue0be" }
+"let g:lightline.subseparator = { 'left': "\ue0b9", 'right': "\ue0b9" }
+"let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
+"let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
 let g:lightline#lsc#indicator_checking = "\uf110"
 let g:lightline#lsc#indicator_notstarted = "\ufbab"
 let g:lightline#lsc#indicator_errors = "\uf00d"
@@ -29,14 +22,14 @@ let g:lightline_gitdiff#indicator_modified = '*'
 let g:lightline_gitdiff#min_winwidth = '70'
 let g:lightline.active = {
             \ 'left': [ [ 'mode', 'paste' ],
-            \           [ 'readonly', 'filename', 'modified', 'gitstatus' ] ],
-            \ 'right': [ [ 'devicons_filetype', 'lineinfo' ],
+            \           [ 'cocstatus', 'readonly', 'filename', 'modified', 'gitstatus' ] ],
+            \ 'right': [ [ 'filetype', 'lineinfo' ],
             \            g:Lightline_Linter,
             \           [ 'asyncrun_status' ] ]
             \ }
 let g:lightline.inactive = {
             \ 'left': [ [ 'filename', 'modified' ]],
-            \ 'right': [ [ 'devicons_filetype', 'lineinfo' ] ]
+            \ 'right': [ [ 'filetype', 'lineinfo' ] ]
             \ }
 let g:lightline.tabline = {
             \ 'left': [ [ 'vim_logo', 'tabs' ] ],
@@ -80,8 +73,6 @@ let g:lightline.component = {
             \ }
 let g:lightline.component_function = {
             \ 'gitbranch': 'gitbranch#name',
-            \ 'devicons_filetype': 'Devicons_Filetype',
-            \ 'devicons_fileformat': 'Devicons_Fileformat'
             \ }
 let g:lightline.component_expand = {
             \ 'lsc_checking': 'lightline#lsc#checking',

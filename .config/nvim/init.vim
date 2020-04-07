@@ -15,23 +15,18 @@ endif
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 call plug#begin('~/.vim/plugged')
-    " intellisense engine and linting
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'dense-analysis/ale'
-    Plug 'rust-lang/rust.vim'
+
+    " linting and completion
+    Plug 'dense-analysis/ale'
 
     " git integrations
     Plug 'macthecadillac/lightline-gitdiff'
     Plug 'tpope/vim-fugitive'
 
     " lightline plugins
-	Plug 'itchyny/lightline.vim'
+    Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
     Plug 'albertomontesg/lightline-asyncrun'
-
-    " tmux
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'edkolev/tmuxline.vim'
 
     " fuzzy finding
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -42,51 +37,41 @@ call plug#begin('~/.vim/plugged')
     Plug 'gkeep/iceberg-dark'
 
     Plug 'yuttie/comfortable-motion.vim'
-    Plug 'ryanoasis/vim-devicons'
     Plug 'mhinz/vim-startify'
 
     " else
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-obsession'
-	Plug 'tpope/vim-commentary'
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+    Plug 'machakann/vim-sandwich'
   	Plug 'mboughaba/i3config.vim'
     Plug 'jiangmiao/auto-pairs'
-    Plug 'ntpeters/vim-better-whitespace'
-
-    Plug 'liuchengxu/vista.vim'
-    Plug 'segeljakt/vim-silicon'
-
-    Plug 'junegunn/goyo.vim'
-    Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
 colorscheme iceberg
+set background=dark
+
+if &background == 'light'
+    let g:lightline = { 'colorscheme': 'iceberg' }
+else
+    let g:lightline = { 'colorscheme': 'icebergDark' }
+endif
+
+" lightline settings
+let g:VIM_Linter = 'ale'
+let g:Lightline_Linter = [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]
+
+source ~/.config/nvim/lightline.vimrc
 
 set expandtab
 set tabstop=4
 set shiftwidth=4
 
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-" treat logos as obj-c
-au BufRead,BufNewFile *.xm set filetype=objc
+highlight Comment cterm=italic gui=italic
 
 let s:screen_xs = 30
 let s:screen_sm = 60
 let s:screen_md = 80
 let s:screen_lg = 120
 let s:screen_xl = 150
-
-let g:VIM_Linter = 'ale'
-let g:Lightline_Linter = [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]
-
-source ~/.config/nvim/lib/lightline.vimrc
 
 " vista settings
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
@@ -101,21 +86,11 @@ let g:vista#renderer#icons = {
 \   "variable": "\uf71b",
 \  }
 
-" goyo + limelight
-nmap <leader>n :Goyo<cr>
-xmap <leader>n :Goyo!<cr>
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
 " startify settings
 let g:startify_lists = [
  \ { 'type': 'files',   'header': ['   Recently used files:'] },
  \ { 'type': 'dir',     'header': ['   Recently used files in this directory:'] }
  \ ]
-
-" vista
-map <silent><C-s> :Vista!!<CR>
 
 " comfortable scrolling
 let g:comfortable_motion_scroll_down_key = "j"
@@ -127,3 +102,5 @@ nmap <leader>/ :BLines<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>r :Rg<cr>
 nmap <leader>c :Commands<cr>
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
