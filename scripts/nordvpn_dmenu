@@ -1,6 +1,6 @@
 #!/bin/bash
 # Dmenu script to control NordVPN.
-output=$(echo -e "connect\nconnect_to_server\ndisconnect\n" | dmenu -i -p "NORDVPN:")
+output=$(echo -e "connect\nconnect_to_server\ndisconnect" | dmenu -i -p "NORDVPN:")
 
 case "$output" in
     connect)
