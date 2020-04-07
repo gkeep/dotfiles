@@ -1,8 +1,9 @@
 # vim: ft=i3config
 set $mod Mod4
+set $term kitty
 
-new_window pixel 1
-new_float normal
+default_border pixel 1
+default_floating_border pixel 2
 
 hide_edge_borders none
 
@@ -13,28 +14,27 @@ font pango:Fira Code Retina 12
 
 floating_modifier $mod
 
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec $term
 
 bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
-bindsym $mod+F1 exec kitty -e nnn
+bindsym $mod+F1 exec $term -e nnn
 bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec pcmanfm
+bindsym $mod+F3 exec codium
 bindsym $mod+F4 exec telegram-desktop < /dev/null
-bindsym $mod+F5 exec kitty -e spt
-bindsym $mod+F6 exec spotify
-bindsym $mod+grave exec kitty -e gotop
-bindsym $mod+Ctrl+m exec kitty -e pulsemixer
+bindsym $mod+F5 exec spotify
+bindsym $mod+grave exec $term -e ytop
+bindsym $mod+Ctrl+m exec $term -e pulsemixer
 
 focus_follows_mouse yes
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym Mod1+h focus left
+bindsym Mod1+j focus down
+bindsym Mod1+k focus up
+bindsym Mod1+l focus right
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -69,7 +69,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-bindsym $mod+Shift+space floating toggle resize set 896 504
+bindsym $mod+Shift+space floating toggle; resize set 896 504
 
 bindsym $mod+space focus mode_toggle
 
@@ -79,14 +79,14 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioStop  exec playerctl stop
 bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioPrev  exec playerctl previous
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +2%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -2%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86MonBrightnessUp   exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+#bindsym $mod+Shift+s sticky toggle
 
 bindsym $mod+a focus parent
 
@@ -136,12 +136,15 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
 assign [class="firefox"] $ws2
+assign [class="Steam"] $ws6
 
 # Open specific applications in floating mode
-for_window [title="pulsemixer"] floating enable resize set 1000 250
+for_window [title="pulsemixer"] floating enable; resize set 1000 250
 for_window [title="File Transfer*"] floating enable
 for_window [class="bleachbit"] floating enable
-for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Lxappearance"] floating enable; sticky enable; border normal
+for_window [class="Steam"] floating enable; border 2
+for_window [class="qemu"] floating enable; border 2
 
 bindsym $mod+Shift+c reload
 
@@ -151,10 +154,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i
 
 bindsym $mod+r mode "resize"
 mode "resize" {
-        bindsym j resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym l resize shrink height 5 px or 5 ppt
-        bindsym semicolon resize grow width 5 px or 5 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
@@ -167,12 +170,12 @@ mode "resize" {
 
 bindsym $mod+m bar mode toggle
 bar {
-    status_command bumblebee-status -m battery spotify brightness pasink time date -p time.format="%H:%M" date.format="%A, %B %d" -t iceberg-dark-powerline
+    status_command bumblebee-status -m battery caffeine cpu spotify brightness pasink time date -p time.format="%H:%M" date.format="%A, %B %d" -t iceberg-dark-powerline
 	i3bar_command i3bar
 	position top
 	height 25
-	tray_output eDP1
-	font pango: Iosevka Nerd Font, Font Awesome 12
+	tray_output primary
+	font pango: Font Awesome, Iosevka Nerd Font 12
 	strip_workspace_numbers no
     mode hide
 
@@ -183,7 +186,7 @@ bar {
 
 #                           border  backgr. text
 	    focused_workspace   #161821 #c6c8d1 #161821
-	    active_workspace    #b4be82 #b4be82 #161821
+	    active_workspace    #d2d4de #d2d4de #161821
 	    inactive_workspace  #161821 #161821 #d2d4de
 	    urgent_workspace    #b4be82 #b4be82 #161821
     }
@@ -247,21 +250,24 @@ bindsym $mod+n exec bash ~/scripts/nordvpn_dmenu
 bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 
 # user customization
+    # enable/disable other screen
+    exec --no-startup-id autorandr -c
 	# apply wallpaper
-	exec_always feh --bg-fill --randomize /home/gkeep/.wallpaper/*
+	exec --no-startup-id sleep 1 && feh --bg-fill ~/.wallpaper/iceberg.jpg
 	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
-	bindsym $mod+Print exec flameshot gui
+	bindsym $mod+Shift+S exec flameshot gui
 	# launch clipboard manager
 	bindsym $mod+c exec clipster -sp
+    # automatically lock
+    exec --no-startup-id xautolock -time 5 -locker ~/scripts/lockscreen.sh
 # autostart
+    exec --no-startup-id xmodmap ~/.xmodmap
 	# notification daemon
     exec --no-startup-id dunst
     # always start with numlock on
     exec --no-startup-id xdotool key --clearmodifiers Num_Lock
-	# mpd notifications
-    exec --no-startup-id mpDris2
     # networkmanager applet
     exec --no-startup-id nm-applet
 	# clipboard manager
@@ -271,4 +277,4 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
     # hide cursor after 3 sec
 	exec --no-startup-id unclutter --timeout 3
 	# compositor
-    exec --no-startup-id picom
+    exec --no-startup-id picom --experimental-backends
