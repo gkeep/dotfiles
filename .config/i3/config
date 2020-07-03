@@ -10,7 +10,7 @@ hide_edge_borders none
 bindsym $mod+u border none
 bindsym $mod+y border pixel 5
 
-font pango:Fira Code Retina 12
+font pango:Cozette 10
 
 floating_modifier $mod
 
@@ -20,12 +20,12 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
-bindsym $mod+F1 exec $term -e nnn
+bindsym $mod+F1 exec $term -e ranger
 bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec codium
 bindsym $mod+F4 exec telegram-desktop < /dev/null
 bindsym $mod+F5 exec spotify
-bindsym $mod+grave exec $term -e ytop
+bindsym $mod+grave exec $term -e ytop -p
 bindsym $mod+Ctrl+m exec $term -e pulsemixer
 
 focus_follows_mouse yes
@@ -58,8 +58,8 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # split orientation
-bindsym $mod+h split h;
-bindsym $mod+v split v;
+bindsym $mod+Shift+h split h;
+bindsym $mod+Shift+v split v;
 bindsym $mod+q split toggle
 
 bindsym $mod+f fullscreen toggle
@@ -82,16 +82,11 @@ bindsym XF86AudioPrev  exec playerctl previous
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86MonBrightnessUp   exec light -A 10
-bindsym XF86MonBrightnessDown exec light -U 10
-
-# toggle sticky
-#bindsym $mod+Shift+s sticky toggle
 
 bindsym $mod+a focus parent
 
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
+bindsym $mod+Right workspace next
+bindsym $mod+Left workspace prev
 
 # Workspaces
 set $ws1 "1: term"
@@ -170,14 +165,15 @@ mode "resize" {
 
 bindsym $mod+m bar mode toggle
 bar {
-    status_command bumblebee-status -m battery caffeine cpu spotify brightness pasink time date -p time.format="%H:%M" date.format="%A, %B %d" -t iceberg-dark-powerline
+    status_command ~/Projects/bumblebee-status/bumblebee-status \
+                -m nic spotify pasink redshift time date \
+                -p time.format="%H:%M" date.format="%A, %B %d" spotify.layout="spotify.prev,spotify.pause,spotify.song,spotify.next" \
+                -t iceberg-dark
 	i3bar_command i3bar
-	position top
-	height 25
-	tray_output primary
-	font pango: Font Awesome, Iosevka Nerd Font 12
+	position bottom
+	height 22
+	font pango: FontAwesome, Cozette 9
 	strip_workspace_numbers no
-    mode hide
 
     colors {
 	    background #161821
@@ -188,18 +184,18 @@ bar {
 	    focused_workspace   #161821 #c6c8d1 #161821
 	    active_workspace    #d2d4de #d2d4de #161821
 	    inactive_workspace  #161821 #161821 #d2d4de
-	    urgent_workspace    #b4be82 #b4be82 #161821
+	    urgent_workspace    #e2a478 #e2a478 #161821
     }
 }
 
-# class                   border  backgr. text    indic.   child_border
-  client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6
-  client.focused_inactive #161821 #161821 #ffffff #454948
-  client.unfocused        #161821 #161821 #ffffff #454948
-  client.urgent           #b4be82 #b4be82 #161821 #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000
+# class                 border  backgr. text    indic.   child_border
+client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6
+client.focused_inactive #161821 #161821 #ffffff #454948
+client.unfocused        #161821 #161821 #ffffff #454948
+client.urgent           #e2a478 #e2a478 #161821 #268BD2
+client.placeholder      #000000 #0c0c0c #ffffff #000000
 
-  client.background       #161821
+client.background       #161821
 
 #Set inner/outer gaps
 gaps inner 0
@@ -250,10 +246,10 @@ bindsym $mod+n exec bash ~/scripts/nordvpn_dmenu
 bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 
 # user customization
-    # enable/disable other screen
-    exec --no-startup-id autorandr -c
+    # enable 144hz
+    exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 144
 	# apply wallpaper
-	exec --no-startup-id sleep 1 && feh --bg-fill ~/.wallpaper/iceberg.jpg
+	exec --no-startup-id $HOME/.fehbg
 	# change kb layout
 	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
 	# screenshot tool
@@ -263,18 +259,17 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
     # automatically lock
     exec --no-startup-id xautolock -time 5 -locker ~/scripts/lockscreen.sh
 # autostart
-    exec --no-startup-id xmodmap ~/.xmodmap
+    # map esc to caps
+    exec --no-startup-id xmodmap $HOME/.xmodmap
+    # blue light filter
+    exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
 	# notification daemon
     exec --no-startup-id dunst
     # always start with numlock on
     exec --no-startup-id xdotool key --clearmodifiers Num_Lock
-    # networkmanager applet
-    exec --no-startup-id nm-applet
 	# clipboard manager
 	exec --no-startup-id clipster -d
-	# touchpad gestures
-	exec --no-startup-id libinput-gestures-setup start
     # hide cursor after 3 sec
-	exec --no-startup-id unclutter --timeout 3
+	exec --no-startup-id unclutter --timeout 10
 	# compositor
-    exec --no-startup-id picom --experimental-backends
+    exec --no-startup-id picom --experimental-backends --config ~/.config/picom/picom.conf
