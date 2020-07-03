@@ -1,13 +1,21 @@
 #!/bin/bash
 # Dmenu script to control NordVPN.
-output=$(echo -e "connect\nconnect_to_server\ndisconnect" | dmenu -i -p "NORDVPN:")
+wm=$(echo $XDG_SESSION_TYPE)
+
+if [ $wm == 'wayland' ]; then
+    menu='bemenu'
+else
+    menu='dmenu'
+fi
+
+output=$(echo -e "connect\nconnect_to_server\ndisconnect" | $menu -i -p "NORDVPN:")
 
 case "$output" in
     connect)
         nordvpn connect
     ;;
     connect_to_server)
-        select_server=$(echo -e "Albania\nAgrentina\nAustralia\nAustria\nBelgium\nBrazil\nBulgaria\nCanada\nChile\nCosta_Rica\nCroatia\nCyprus\nCzech_Republic\nDenmark\nEstonia\nFinland\nFrance\nGeorgia\nGermany\nGreece\nHonk_Kong\nHungary\nIceland\nIndia\nIndonesia\nIreland\nIsreal\nItaly\nJapan\nLatvia\nLuxembourg\nMalaysia\nMexico\nMoldova\nNetherlands\nNew_Zealand\nNorth_Macedonia\nNorway\nPoland\nPortugal\nRomania\nSerbia\nSingapore\nSlovakia\nSlovenia\nSouth_Africa\nSouth_Korea\nSpain\nSweden\nSwitzerland\nTaiwan\nThailand\nTurkey\nUkraine\nUnited_Kingdom\nUnited_States\nVietnam" | dmenu -i -p "Select a server" )
+        select_server=$(echo -e "Albania\nAgrentina\nAustralia\nAustria\nBelgium\nBrazil\nBulgaria\nCanada\nChile\nCosta_Rica\nCroatia\nCyprus\nCzech_Republic\nDenmark\nEstonia\nFinland\nFrance\nGeorgia\nGermany\nGreece\nHonk_Kong\nHungary\nIceland\nIndia\nIndonesia\nIreland\nIsreal\nItaly\nJapan\nLatvia\nLuxembourg\nMalaysia\nMexico\nMoldova\nNetherlands\nNew_Zealand\nNorth_Macedonia\nNorway\nPoland\nPortugal\nRomania\nSerbia\nSingapore\nSlovakia\nSlovenia\nSouth_Africa\nSouth_Korea\nSpain\nSweden\nSwitzerland\nTaiwan\nThailand\nTurkey\nUkraine\nUnited_Kingdom\nUnited_States\nVietnam" | $menu -i -p "Select a server" )
         nordvpn connect $select_server
     ;;
     disconnect)
