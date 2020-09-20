@@ -20,8 +20,7 @@ if exists('+termguicolors')
 endif
 
 call plug#begin('~/.local/share/nvim/site/autoload')
-    " linting and completion
-    Plug 'dense-analysis/ale'
+    " completion
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
     " git integrations
@@ -35,10 +34,8 @@ call plug#begin('~/.local/share/nvim/site/autoload')
     Plug 'junegunn/fzf.vim'
 
     " visuals
-    "Plug 'cocopon/iceberg.vim'
-    Plug '~/Projects/iceberg.vim'
+    Plug 'cocopon/iceberg.vim'
     Plug 'gkeep/iceberg-dark'
-    Plug 'mhinz/vim-startify'
 
     " syntax highlighting
     Plug 'mboughaba/i3config.vim'
@@ -47,7 +44,6 @@ call plug#begin('~/.local/share/nvim/site/autoload')
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-commentary'
     Plug 'ntpeters/vim-better-whitespace'
-    Plug 'junegunn/goyo.vim'
     Plug 'machakann/vim-sandwich'
 call plug#end()
 
@@ -76,25 +72,6 @@ let s:screen_sm = 60
 let s:screen_md = 80
 let s:screen_lg = 120
 let s:screen_xl = 150
-
-" vista settings
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_default_executive = 'ctags'
-let g:vista_executive_for = {
-\   'go': 'ctags',
-\   'python': 'coc',
-\   }
-let g:vista#renderer#enable_icon = 1
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
-
-" startify settings
-let g:startify_lists = [
- \ { 'type': 'files',   'header': ['   Recently used files:'] },
- \ { 'type': 'dir',     'header': ['   Recently used files in this directory:'] }
- \ ]
 
 " fzf
 nmap <leader>f :Files<cr>

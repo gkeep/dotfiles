@@ -10,6 +10,12 @@ hide_edge_borders none
 bindsym $mod+u border none
 bindsym $mod+y border pixel 5
 
+gaps inner 2
+gaps outer 1
+
+smart_gaps on
+smart_borders on
+
 font pango:Cozette 10
 
 floating_modifier $mod
@@ -22,21 +28,18 @@ bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
 bindsym $mod+F1 exec $term -e ranger
 bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec codium
+bindsym $mod+F3 exec code
 bindsym $mod+F4 exec telegram-desktop < /dev/null
 bindsym $mod+F5 exec spotify
-bindsym $mod+grave exec $term -e ytop -p
+bindsym $mod+grave exec $term -e htop
 bindsym $mod+Ctrl+m exec $term -e pulsemixer
 
 focus_follows_mouse yes
-
-# change focus
 bindsym Mod1+h focus left
 bindsym Mod1+j focus down
 bindsym Mod1+k focus up
 bindsym Mod1+l focus right
 
-# move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
@@ -51,37 +54,28 @@ workspace_auto_back_and_forth yes
 bindsym Mod1+Tab workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
-# Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
-# Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
-# split orientation
 bindsym $mod+Shift+h split h;
 bindsym $mod+Shift+v split v;
 bindsym $mod+q split toggle
 
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 bindsym $mod+Shift+space floating toggle; resize set 896 504
 
-bindsym $mod+space focus mode_toggle
+bindsym Mod1+space focus mode_toggle
 
-# laptop buttons
-bindsym XF86AudioPlay  exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioStop  exec playerctl stop
-bindsym XF86AudioNext  exec playerctl next
-bindsym XF86AudioPrev  exec playerctl previous
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86Tools exec --no-startup-id playerctl play-pause
 
 bindsym $mod+a focus parent
 
@@ -94,7 +88,7 @@ set $ws2 "2: web"
 set $ws3 "3: code"
 set $ws4 "4: ssh"
 set $ws5 "5: music"
-set $ws6 "6: rnd"
+set $ws6 "6: disc"
 set $ws7 "7: rnd"
 set $ws8 "8: rnd"
 set $ws9 "9: rnd"
@@ -131,7 +125,6 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
 assign [class="firefox"] $ws2
-assign [class="Steam"] $ws6
 
 # Open specific applications in floating mode
 for_window [title="pulsemixer"] floating enable; resize set 1000 250
@@ -167,11 +160,11 @@ bindsym $mod+m bar mode toggle
 bar {
     status_command ~/Projects/bumblebee-status/bumblebee-status \
                 -m nic spotify pasink redshift time date \
-                -p time.format="%H:%M" date.format="%A, %B %d" spotify.layout="spotify.prev,spotify.pause,spotify.song,spotify.next" \
+                -p time.format="%H:%M" date.format="%a, %b %d" spotify.layout="spotify.prev,spotify.song,spotify.pause,spotify.next" \
                 -t iceberg-dark
 	i3bar_command i3bar
 	position bottom
-	height 22
+	height 25
 	font pango: FontAwesome, Cozette 9
 	strip_workspace_numbers no
 
@@ -184,7 +177,7 @@ bar {
 	    focused_workspace   #161821 #c6c8d1 #161821
 	    active_workspace    #d2d4de #d2d4de #161821
 	    inactive_workspace  #161821 #161821 #d2d4de
-	    urgent_workspace    #e2a478 #e2a478 #161821
+	    urgent_workspace    #b4be82 #b4be82 #161821
     }
 }
 
@@ -192,18 +185,10 @@ bar {
 client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6
 client.focused_inactive #161821 #161821 #ffffff #454948
 client.unfocused        #161821 #161821 #ffffff #454948
-client.urgent           #e2a478 #e2a478 #161821 #268BD2
+client.urgent           #b4be82 #b4be82 #161821 #268BD2
 client.placeholder      #000000 #0c0c0c #ffffff #000000
 
 client.background       #161821
-
-#Set inner/outer gaps
-gaps inner 0
-gaps outer 0
-
-smart_gaps on
-
-smart_borders on
 
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -251,25 +236,21 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 	# apply wallpaper
 	exec --no-startup-id $HOME/.fehbg
 	# change kb layout
-	exec "setxkbmap -option 'grp:alt_shift_toggle' -layout 'us,ru'"
+	exec setxkbmap -option 'grp:alt_space_toggle' -layout 'us,ru'
 	# screenshot tool
 	bindsym $mod+Shift+S exec flameshot gui
 	# launch clipboard manager
 	bindsym $mod+c exec clipster -sp
     # automatically lock
-    exec --no-startup-id xautolock -time 5 -locker ~/scripts/lockscreen.sh
+    exec --no-startup-id xautolock -time 10 -locker ~/scripts/lockscreen.sh
 # autostart
-    # map esc to caps
-    exec --no-startup-id xmodmap $HOME/.xmodmap
     # blue light filter
     exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
 	# notification daemon
     exec --no-startup-id dunst
-    # always start with numlock on
-    exec --no-startup-id xdotool key --clearmodifiers Num_Lock
 	# clipboard manager
 	exec --no-startup-id clipster -d
-    # hide cursor after 3 sec
+    # hide cursor after N sec
 	exec --no-startup-id unclutter --timeout 10
 	# compositor
-    exec --no-startup-id picom --experimental-backends --config ~/.config/picom/picom.conf
+    #exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends
