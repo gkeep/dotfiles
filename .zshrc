@@ -23,4 +23,4 @@ source /usr/share/fzf/completion.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # source aliases
-#source $HOME/.aliases
+source $HOME/.aliases
