@@ -26,7 +26,7 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
-bindsym $mod+F1 exec $term -e ranger
+bindsym $mod+F1 exec $term -e lf
 bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec code
 bindsym $mod+F4 exec telegram-desktop < /dev/null
@@ -156,30 +156,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+m bar mode toggle
-bar {
-    status_command ~/Projects/bumblebee-status/bumblebee-status \
-                -m nic spotify pasink redshift time date \
-                -p time.format="%H:%M" date.format="%a, %b %d" spotify.layout="spotify.prev,spotify.song,spotify.pause,spotify.next" \
-                -t iceberg-dark
-	i3bar_command i3bar
-	position bottom
-	height 25
-	font pango: FontAwesome, Cozette 9
-	strip_workspace_numbers no
-
-    colors {
-	    background #161821
-	    statusline #c6c8d1
-	    separator  #c6c8d1
-
-#                           border  backgr. text
-	    focused_workspace   #161821 #c6c8d1 #161821
-	    active_workspace    #d2d4de #d2d4de #161821
-	    inactive_workspace  #161821 #161821 #d2d4de
-	    urgent_workspace    #b4be82 #b4be82 #161821
-    }
-}
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+bindsym $mod+m exec polybar-msg cmd toggle
 
 # class                 border  backgr. text    indic.   child_border
 client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6
@@ -253,4 +231,4 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
     # hide cursor after N sec
 	exec --no-startup-id unclutter --timeout 10
 	# compositor
-    #exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends
+    exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends
