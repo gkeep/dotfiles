@@ -1,0 +1,13 @@
+[user]
+    name = gkeep
+    email = gkeep77@protonmail.com
+[init]
+    defaultBranch = main
+[alias]
+    st  = status
+    ci  = commit --verbose
+    co  = checkout
+    df  = diff
+    lg  = log -p
+    ap  = add --patch
+    dfh = diff HEAD
