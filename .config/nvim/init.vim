@@ -39,6 +39,7 @@ call plug#begin('~/.local/share/nvim/site/autoload')
 
     " syntax highlighting
     Plug 'mboughaba/i3config.vim'
+    Plug 'ap/vim-css-color'
 
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     Plug 'jiangmiao/auto-pairs'
