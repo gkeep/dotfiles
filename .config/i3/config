@@ -12,8 +12,6 @@ bindsym $mod+y border pixel 5
 
 gaps inner 0
 gaps outer 0
-# gaps inner 2
-# gaps outer 1
 
 smart_gaps on
 smart_borders on
@@ -83,6 +81,8 @@ bindsym XF86AudioPrev  exec playerctl previous
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86MonBrightnessUp   exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
 
 bindsym $mod+a focus parent
 
@@ -90,15 +90,15 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # Workspaces
-set $ws1 "1: term"
-set $ws2 "2: web"
-set $ws3 "3: code"
-set $ws4 "4: ssh"
-set $ws5 "5: music"
-set $ws6 "6: disc"
-set $ws7 "7: rnd"
-set $ws8 "8: rnd"
-set $ws9 "9: rnd"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -169,12 +169,12 @@ mode "resize" {
 bindsym $mod+m bar mode toggle
 bar {
     status_command bumblebee-status \
-                -m nic spotify redshift pasink time date \
-                -p time.format="%H:%M" date.format="%a, %b %d" spotify.layout="spotify.prev, spotify.song, spotify.pause, spotify.next" \
+                -m battery sensors redshift pasink time date \
+                -p time.format="%H:%M" date.format="%a, %b %d" nic.include="wlan0" spotify.layout="spotify.prev, spotify.song, spotify.pause, spotify.next" \
                 -t iceberg-dark
 	i3bar_command i3bar
-	position bottom
-	height 25
+	position top
+	height 20
 	font pango: FontAwesome, Cozette 9
 	strip_workspace_numbers no
 
@@ -242,11 +242,11 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 
 # user customization
     # enable 144hz
-    exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 144
+    # exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 144
 	# apply wallpaper
 	exec --no-startup-id $HOME/.fehbg
 	# change kb layout
-    exec setxkbmap -option 'grp:ctrl_space_toggle' -layout 'us,ru'
+    # exec setxkbmap -option 'grp:ctrl_space_toggle' -layout 'us,ru'
 	# screenshot tool
 	bindsym $mod+Shift+S exec flameshot gui
 	# clipboard manager
@@ -263,4 +263,4 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
     # hide cursor after N sec
 	exec --no-startup-id unclutter --timeout 10
 	# compositor
-    exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends
+    # exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends

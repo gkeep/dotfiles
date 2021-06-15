@@ -21,7 +21,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/site/autoload')
     " completion
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
     " git integrations
     Plug 'tpope/vim-fugitive'
@@ -66,7 +66,7 @@ source ~/.config/nvim/colorscheme.vim
 source ~/.config/nvim/lightline.vim
 
 " deoplete settings
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 let s:screen_xs = 30
 let s:screen_sm = 60
