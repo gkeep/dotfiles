@@ -6,27 +6,37 @@ export REPO_LOCATION="$HOME/Projects/dotfiles" # your dotfiles repo location her
 # to add a file/folder specify its locaion using $HOME or $XDG_CONFIG_HOME here
 declare -a FILES=(
     $HOME/.config/dunst \
-    $HOME/.config/fish/config.fish \
-    $HOME/.config/fish/fish_variables \
     $HOME/.config/i3 \
     $HOME/.config/kitty \
-    $HOME/.config/mpd \
-    $HOME/.config/ncmpcpp \
     $HOME/.config/nvim \
     $HOME/.config/picom \
+    $HOME/.config/polybar \
     $HOME/.profile \
     $HOME/.vimrc \
     $HOME/.zshrc \
     $HOME/.tmux.conf \
-    $HOME/scripts)
+    $HOME/.gitconfig \
+)
+
+declare -a BLOCK=(
+    $HOME/.config/ncmpcpp/error.log \
+    $HOME/.config/nvim/colorscheme.vim \
+    $HOME/.config/polybar/fonts \
+)
 
 for i in "${FILES[@]}"
 do
     if [[ $i == *".config"* ]]
     then
-        rsync -rl $i $REPO_LOCATION/.config
+        for b in "${BLOCK[@]}"
+        do
+            if [[ ! $i =~ $b ]]
+            then
+                rsync -rl $i $REPO_LOCATION/.config
+            fi
+        done
+        echo "Successfully updated $i"
     else
         rsync -rl $i $REPO_LOCATION
     fi
-    echo "Successfully updated $i"
 done

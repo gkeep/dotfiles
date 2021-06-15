@@ -1,12 +1,7 @@
 #!/bin/bash
 # Dmenu shutdown/lock/suspend/reboot menu.
 wm=$(echo $XDG_SESSION_TYPE)
-
-if [ $wm == 'wayland' ]; then
-    menu='bemenu'
-else
-    menu='dmenu'
-fi
+menu='dmenu'
 
 output=$(echo -e "lock\nlogout\nsuspend\nshutdown\nreboot" | $menu -p "ACTION:")
 
@@ -28,10 +23,6 @@ case "$output" in
         systemctl suspend
     ;;
     lock)
-        if [ $wm == 'wayland' ]; then
-            swaylock -K -c 0f1117
-        else
-            slock
-        fi
+        /home/gkeep/scripts/lock.sh
     ;;
 esac

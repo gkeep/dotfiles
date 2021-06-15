@@ -20,3 +20,5 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color fg:#c6c8d1,bg:#161821,hl:#84a0c6,fg+:#c6c8d1,bg+:#1e2132,hl+:#84a0c6
 --color pointer:#e27878,info:#e2a478,spinner:#89b8c2,header:#b4be82,prompt:#84a0c6,marker:#b4be82'
 
+# gpg key
+export GPG_TTY=$(tty)

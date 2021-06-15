@@ -1,6 +1,6 @@
 # vim: ft=i3config
 set $mod Mod4
-set $term kitty
+set $term alacritty
 
 default_border pixel 1
 default_floating_border pixel 2
@@ -10,8 +10,10 @@ hide_edge_borders none
 bindsym $mod+u border none
 bindsym $mod+y border pixel 5
 
-gaps inner 2
-gaps outer 1
+gaps inner 0
+gaps outer 0
+# gaps inner 2
+# gaps outer 1
 
 smart_gaps on
 smart_borders on
@@ -26,11 +28,11 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
 
-bindsym $mod+F1 exec $term -e lf
+bindsym $mod+F1 exec $term -e ranger
 bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec code
 bindsym $mod+F4 exec telegram-desktop < /dev/null
-bindsym $mod+F5 exec spotify
+bindsym $mod+F5 exec flatpak run com.spotify.Client
 bindsym $mod+grave exec $term -e htop
 bindsym $mod+Ctrl+m exec $term -e pulsemixer
 
@@ -72,15 +74,20 @@ bindsym $mod+Shift+space floating toggle; resize set 896 504
 
 bindsym Mod1+space focus mode_toggle
 
+# media buttons
+bindsym XF86AudioPlay  exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioStop  exec playerctl stop
+bindsym XF86AudioNext  exec playerctl next
+bindsym XF86AudioPrev  exec playerctl previous
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86Tools exec --no-startup-id playerctl play-pause
 
 bindsym $mod+a focus parent
 
-bindsym $mod+Right workspace next
-bindsym $mod+Left workspace prev
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
 
 # Workspaces
 set $ws1 "1: term"
@@ -133,6 +140,7 @@ for_window [class="bleachbit"] floating enable
 for_window [class="Lxappearance"] floating enable; sticky enable; border normal
 for_window [class="Steam"] floating enable; border 2
 for_window [class="qemu"] floating enable; border 2
+for_window [class="Telegram"] floating enable; border 2; resize set 640 360
 
 bindsym $mod+Shift+c reload
 
@@ -156,8 +164,32 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-bindsym $mod+m exec polybar-msg cmd toggle
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# bindsym $mod+m exec polybar-msg cmd toggle
+bindsym $mod+m bar mode toggle
+bar {
+    status_command bumblebee-status \
+                -m nic spotify redshift pasink time date \
+                -p time.format="%H:%M" date.format="%a, %b %d" spotify.layout="spotify.prev, spotify.song, spotify.pause, spotify.next" \
+                -t iceberg-dark
+	i3bar_command i3bar
+	position bottom
+	height 25
+	font pango: FontAwesome, Cozette 9
+	strip_workspace_numbers no
+
+    colors {
+	    background #161821
+	    statusline #c6c8d1
+	    separator  #c6c8d1
+
+#                           border  backgr. text
+	    focused_workspace   #161821 #c6c8d1 #161821
+	    active_workspace    #d2d4de #d2d4de #161821
+	    inactive_workspace  #161821 #161821 #d2d4de
+	    urgent_workspace    #b4be82 #b4be82 #161821
+    }
+}
 
 # class                 border  backgr. text    indic.   child_border
 client.focused          #c6c8d1 #c6c8d1 #161821 #84a0c6
@@ -214,20 +246,20 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
 	# apply wallpaper
 	exec --no-startup-id $HOME/.fehbg
 	# change kb layout
-	exec setxkbmap -option 'grp:alt_space_toggle' -layout 'us,ru'
+    exec setxkbmap -option 'grp:ctrl_space_toggle' -layout 'us,ru'
 	# screenshot tool
 	bindsym $mod+Shift+S exec flameshot gui
-	# launch clipboard manager
-	bindsym $mod+c exec clipster -sp
+	# clipboard manager
+	bindsym $mod+v exec clipmenu
+    # bluetooth manager
+    bindsym $mod+b exec blueberry
     # automatically lock
     exec --no-startup-id xautolock -time 10 -locker ~/scripts/lockscreen.sh
 # autostart
-    # blue light filter
-    exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
 	# notification daemon
     exec --no-startup-id dunst
 	# clipboard manager
-	exec --no-startup-id clipster -d
+	exec --no-startup-id clipmenud
     # hide cursor after N sec
 	exec --no-startup-id unclutter --timeout 10
 	# compositor

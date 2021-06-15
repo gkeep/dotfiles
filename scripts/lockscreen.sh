@@ -48,5 +48,5 @@ should_lock() {
 
 # main()
 if should_lock; then
-    slock
+    /home/gkeep/scripts/lock.sh
 fi

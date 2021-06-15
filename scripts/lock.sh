@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+i3lock --clock --indicator --insidecolor=0f1117FF --ringcolor=c6c8d1FF --line-uses-inside --keyhlcolor=84a0c6FF --bshlcolor=e27878FF --insidevercolor=c6c8d1FF --insidewrongcolor=e27878FF --ringvercolor=84a0c6FF --ringwrongcolor=e27878FF --separatorcolor=c6c8d1FF --verifcolor=c6c8d1FF --wrongcolor=c6c8d1FF --timecolor=c6c8d1FF --datecolor=d2d4deFF --color=161821FF --timestr="%H:%M" --datestr="%a, %b, %d"
