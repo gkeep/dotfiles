@@ -19,9 +19,11 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-call plug#begin('~/.local/share/nvim/site/autoload')
-    " completion
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+call plug#begin('$HOME/.local/share/nvim/site/autoload')
+    " lsp
+    Plug 'neovim/nvim-lsp'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-compe'
 
     " git integrations
     Plug 'tpope/vim-fugitive'
@@ -30,7 +32,6 @@ call plug#begin('~/.local/share/nvim/site/autoload')
     Plug 'itchyny/lightline.vim'
 
     " fuzzy finding
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
 
     " visuals
@@ -53,20 +54,13 @@ set background=dark
 
 highlight Comment cterm=italic gui=italic
 
-if &background == 'light'
-    let g:lightline = { 'colorscheme': 'iceberg' }
-else
-    let g:lightline = { 'colorscheme': 'icebergDark' }
-endif
-
-" colorscheme switching funcitons
-source ~/.config/nvim/colorscheme.vim
+let g:lightline = { 'colorscheme': 'icebergDark' }
 
 " lightline settings
-source ~/.config/nvim/lightline.vim
+source $HOME/.config/nvim/lightline.vim
 
-" deoplete settings
-" let g:deoplete#enable_at_startup = 1
+" load lsp settings
+source $HOME/.config/nvim/lsp.vim
 
 let s:screen_xs = 30
 let s:screen_sm = 60
