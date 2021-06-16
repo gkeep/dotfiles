@@ -164,13 +164,11 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-# bindsym $mod+m exec polybar-msg cmd toggle
 bindsym $mod+m bar mode toggle
 bar {
     status_command bumblebee-status \
-                -m battery sensors redshift pasink time date \
-                -p time.format="%H:%M" date.format="%a, %b %d" nic.include="wlan0" spotify.layout="spotify.prev, spotify.song, spotify.pause, spotify.next" \
+                -m battery sensors brightness redshift pasink time date \
+                -p time.format="%H:%M" date.format="%a, %b %d" \
                 -t iceberg-dark
 	i3bar_command i3bar
 	position top
@@ -238,15 +236,13 @@ mode "$mode_gaps_outer" {
 
 # scripts
 bindsym $mod+n exec bash ~/scripts/nordvpn_dmenu
-bindsym $mod+0 exec bash ~/scripts/exit_dmenu
+bindsym XF86Launch1 exec bash ~/scripts/exit_dmenu
 
 # user customization
-    # enable 144hz
-    # exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 144
 	# apply wallpaper
 	exec --no-startup-id $HOME/.fehbg
 	# change kb layout
-    # exec setxkbmap -option 'grp:ctrl_space_toggle' -layout 'us,ru'
+    exec setxkbmap -option 'grp:ctrl_space_toggle' -layout 'us,ru'
 	# screenshot tool
 	bindsym $mod+Shift+S exec flameshot gui
 	# clipboard manager
@@ -256,11 +252,9 @@ bindsym $mod+0 exec bash ~/scripts/exit_dmenu
     # automatically lock
     exec --no-startup-id xautolock -time 10 -locker ~/scripts/lockscreen.sh
 # autostart
-	# notification daemon
-    exec --no-startup-id dunst
 	# clipboard manager
 	exec --no-startup-id clipmenud
     # hide cursor after N sec
 	exec --no-startup-id unclutter --timeout 10
 	# compositor
-    # exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends
+    exec --no-startup-id picom --config ~/.config/picom/picom.conf
