@@ -5,7 +5,7 @@ set encoding=UTF-8
 
 let mapleader = " "
 
-" tab is four spaces
+" convert tab to four spaces
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -42,11 +42,11 @@ call plug#begin('$HOME/.local/share/nvim/site/autoload')
     Plug 'mboughaba/i3config.vim'
     Plug 'ap/vim-css-color'
 
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-commentary'
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'machakann/vim-sandwich'
+    Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
 colorscheme iceberg
@@ -59,7 +59,7 @@ let g:lightline = { 'colorscheme': 'icebergDark' }
 " lightline settings
 source $HOME/.config/nvim/lightline.vim
 
-" load lsp settings
+" lsp settings
 source $HOME/.config/nvim/lsp.vim
 
 let s:screen_xs = 30
