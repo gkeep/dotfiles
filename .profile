@@ -7,13 +7,10 @@ export NNN_SSHFS_OPTS="sshfs -o follow_symlinks"
 
 # ssh-related aliases
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
 # custom bin loacitons
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
-
-# theos
-export THEOS=/opt/theos
 
 # fzf colors
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
@@ -22,3 +19,6 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 
 # gpg key
 export GPG_TTY=$(tty)
+
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+

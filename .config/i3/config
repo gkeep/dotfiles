@@ -1,6 +1,6 @@
 # vim: ft=i3config
 set $mod Mod4
-set $term alacritty
+set $term st
 
 default_border pixel 1
 default_floating_border pixel 2
@@ -10,8 +10,8 @@ hide_edge_borders none
 bindsym $mod+u border none
 bindsym $mod+y border pixel 5
 
-gaps inner 0
-gaps outer 0
+gaps inner 1
+gaps outer 2
 
 smart_gaps on
 smart_borders on
@@ -54,6 +54,9 @@ workspace_auto_back_and_forth yes
 bindsym Mod1+Tab workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
+bindsym XF86Forward workspace next
+bindsym XF86Back workspace prev
+
 bindsym $mod+Shift+minus move scratchpad
 
 bindsym $mod+minus scratchpad show
@@ -85,9 +88,6 @@ bindsym XF86MonBrightnessUp   exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
 
 bindsym $mod+a focus parent
-
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
 
 # Workspaces
 set $ws1 "1"
@@ -166,14 +166,17 @@ mode "resize" {
 
 bindsym $mod+m bar mode toggle
 bar {
-    status_command bumblebee-status \
-                -m battery sensors brightness redshift pasink time date \
-                -p time.format="%H:%M" date.format="%a, %b %d" \
-                -t iceberg-dark
+    # status_command bumblebee-status \
+    #             -m battery-upower nic sensors brightness pasink time date \
+    #             -p nic.exclude="wwp0s29u1u4i6, lo" nic.format="{intf} {state} {ip}" \
+    #                time.format="%H:%M" date.format="%a, %b %d" \
+    #                sensors.show_freq="false" \
+    #             -t iceberg-dark
+    status_command i3status -c $HOME/.config/i3status/i3status.conf
 	i3bar_command i3bar
 	position top
 	height 20
-	font pango: FontAwesome, Cozette 9
+	font pango: Iosevka Semibold 9
 	strip_workspace_numbers no
 
     colors {
@@ -235,26 +238,27 @@ mode "$mode_gaps_outer" {
 }
 
 # scripts
-bindsym $mod+n exec bash ~/scripts/nordvpn_dmenu
-bindsym XF86Launch1 exec bash ~/scripts/exit_dmenu
+bindsym $mod+n exec bash $HOME/scripts/vpn_dmenu
+bindsym XF86Launch1 exec bash $HOME/scripts/exit_dmenu
 
 # user customization
 	# apply wallpaper
 	exec --no-startup-id $HOME/.fehbg
-	# change kb layout
-    exec setxkbmap -option 'grp:ctrl_space_toggle' -layout 'us,ru'
+	# keyboard settings
+    exec setxkbmap -option 'caps:backspace, grp:alt_space_toggle' -layout 'us,ru'
 	# screenshot tool
 	bindsym $mod+Shift+S exec flameshot gui
 	# clipboard manager
 	bindsym $mod+v exec clipmenu
     # bluetooth manager
     bindsym $mod+b exec blueberry
-    # automatically lock
-    exec --no-startup-id xautolock -time 10 -locker ~/scripts/lockscreen.sh
+    # automatically lock and suspend
+    exec --no-startup-id xautolock -time 5  -locker i3lock-fancy
+    exec --no-startup-id xautolock -time 15 -locker "systemctl suspend"
 # autostart
 	# clipboard manager
 	exec --no-startup-id clipmenud
     # hide cursor after N sec
 	exec --no-startup-id unclutter --timeout 10
 	# compositor
-    exec --no-startup-id picom --config ~/.config/picom/picom.conf
+    exec --no-startup-id picom --config $HOME/.config/picom/picom.conf

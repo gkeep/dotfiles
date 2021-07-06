@@ -5,7 +5,6 @@ export REPO_LOCATION="$HOME/git/dotfiles" # your dotfiles repo location here
 
 # to add a file/folder specify its locaion using $HOME or $XDG_CONFIG_HOME here
 declare -a FILES=(
-    $HOME/.config/alacritty \
     $HOME/.config/dunst \
     $HOME/.config/i3 \
     $HOME/.config/nvim \

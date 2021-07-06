@@ -2,3 +2,5 @@
 alias lg="lazygit"
 alias ls="exa"
 alias td="todoist"
+
+alias refresh-mirrors="reflector --verbose --latest 5 --country 'Russia' --protocol https --sort rate --save /etc/pacman.d/mirrorlist"

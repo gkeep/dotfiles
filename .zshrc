@@ -1,9 +1,8 @@
-HISTFILE=$HOME/.zsh_history
+source $HOME/.config/zsh/history.zsh
 
 # colors for tab-completions
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
 
-# source aliases
 source $HOME/.aliases
 
 # load starship
