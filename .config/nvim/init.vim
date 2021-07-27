@@ -37,6 +37,11 @@ call plug#begin('$HOME/.local/share/nvim/site/autoload')
     " visuals
     Plug 'cocopon/iceberg.vim'
     Plug 'gkeep/iceberg-dark'
+    Plug 'junegunn/goyo.vim'
+
+    " folding
+    Plug 'Konfekt/FastFold'
+    Plug 'tmhedberg/SimpylFold'
 
     " syntax highlighting
     Plug 'mboughaba/i3config.vim'
@@ -74,5 +79,25 @@ nmap <leader>/ :BLines<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>r :Rg<cr>
 nmap <leader>c :Commands<cr>
+
+" goyo
+let g:goyo_width = 120
+nmap <leader>n :Goyo<cr>
+xmap <leader>n :Goyo!<cr>
+
+" folding settings
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
+let g:SimpylFold_docstring_preview = 1
+
+" cv paste
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
+
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }

@@ -1,6 +1,6 @@
 " python
 lua << EOF
-require'lspconfig'.pyls.setup{}
+require'lspconfig'.pylsp.setup{}
 
 -- nvim-compe config
 require'compe'.setup {
@@ -38,5 +38,15 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-" use omni completion provided by lsp
+" remember folds when after exiting
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
+" use omni completion provided by lsp and enable character limit column
 autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype python setlocal colorcolumn=120
+
+let g:SimpylFold_docstring_preview = 1
