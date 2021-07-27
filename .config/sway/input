@@ -1,0 +1,17 @@
+input "type:keyboard" {
+    xkb_variant ","
+    xkb_layout "us,ru"
+    xkb_options grp:alt_space_toggle,caps:backspace
+}
+
+input "type:touchpad" {
+    natural_scroll enabled
+    tap enabled
+    accel_profile "flat"
+    pointer_accel 0.1
+}
+
+
+# in ms
+seat seat0 hide_cursor 15000
+seat seat0 hide_cursor when-typing enable

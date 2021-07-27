@@ -1,0 +1,48 @@
+[theme]
+file = "iceberg.toml"
+
+[icons]
+name = "none"
+
+[[block]]
+block = "battery"
+interval = 5
+# format = "{percentage} {power} {time}H"
+format = "{percentage} {time}H"
+
+[[block]]
+block = "networkmanager"
+on_click = "st -e iwctl"
+ap_format = "{ssid^10} ({strength})"
+device_format = "{icon}{ap}"
+
+[[block]]
+block = "memory"
+format_mem = "{mem_used}/{mem_total}"
+interval = 1
+
+[[block]]
+block = "backlight"
+
+[[block]]
+block = "cpu"
+interval = 1
+format = "{utilization} {frequency}"
+
+[[block]]
+block = "temperature"
+collapsed = false
+interval = 5
+warning = 70
+chip = "*-isa-*"
+format = "{average}"
+
+[[block]]
+block = "sound"
+show_volume_when_muted = true
+
+[[block]]
+block = "time"
+interval = 1
+format = "%a, %b %d %H:%M"
+

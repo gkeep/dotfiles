@@ -1,0 +1,14 @@
+idle_bg = "#161821" # base03
+idle_fg = "#c6c8d1" # base1
+info_bg = "#161821" # blue
+info_fg = "#84a0c6" # base03
+good_bg = "#161821" # green
+good_fg = "#b4be82" # base03
+warning_bg = "#161821" # yellow
+warning_fg = "#e2a478" # base03
+critical_bg = "#161821" # red
+critical_fg = "#e27878" # base03
+separator = ""
+alternating_tint_bg = "#000000"
+alternating_tint_fg = "#000000"
+

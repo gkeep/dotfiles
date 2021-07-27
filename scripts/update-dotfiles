@@ -5,11 +5,12 @@ export REPO_LOCATION="$HOME/git/dotfiles" # your dotfiles repo location here
 
 # to add a file/folder specify its locaion using $HOME or $XDG_CONFIG_HOME here
 declare -a FILES=(
+    $HOME/.config/alacritty \
     $HOME/.config/dunst \
-    $HOME/.config/i3 \
-    $HOME/.config/i3status \
+    $HOME/.config/sway \
+    $HOME/.config/swaylock \
+    $HOME/.config/i3status-rust \
     $HOME/.config/nvim \
-    $HOME/.config/picom \
     $HOME/.config/zsh \
     $HOME/.aliases \
     $HOME/.profile \
@@ -17,10 +18,13 @@ declare -a FILES=(
     $HOME/.zshrc \
     $HOME/.tmux.conf \
     $HOME/.gitconfig \
+    $HOME/scripts \
 )
 
 declare -a IGNORE=(
     $HOME/.config/ncmpcpp/error.log \
+    $HOME/.config/zsh/plugins \
+    $HOME/.config/zsh/keybindings.zsh.zwc \
 )
 
 for i in "${FILES[@]}"

@@ -1,28 +1,22 @@
 #!/bin/bash
 # Dmenu shutdown/lock/suspend/reboot menu.
-wm=$(echo $XDG_SESSION_TYPE)
-menu='dmenu'
-
-output=$(echo -e "lock\nlogout\nsuspend\nshutdown\nreboot" | $menu -p "ACTION:")
+#menu='dmenu'
+menu='rofi -dmenu --no-show-icons'
+output=$(printf "lock\nsuspend\nshutdown\nlogout" | $menu -p "ACTION")
 
 case "$output" in
     logout)
-        if [ "$wm" == "i3" ]; then
-            i3-msg exit
-        elif [ "$wm" == "dwm" ]; then
-            killall -9 dwm
-        fi
+        # i3-msg exit
+        swaymsg exit
     ;;
     shutdown)
         shutdown -h now
-    ;;
-    reboot)
-        reboot
     ;;
     suspend)
         systemctl suspend
     ;;
     lock)
-        /home/gkeep/scripts/lock.sh
+        # /home/gkeep/scripts/lock.sh
+        swaylock -f
     ;;
 esac

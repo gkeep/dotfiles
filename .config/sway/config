@@ -1,0 +1,205 @@
+# vim: ft=i3config
+set $mod Mod4
+set $term alacritty
+
+default_border pixel 2
+default_floating_border pixel 2
+
+# smart_borders on
+include $HOME/.config/sway/autostart
+
+hide_edge_borders none
+bindsym $mod+u border none
+
+font pango:Iosevka Semibold 10
+
+floating_modifier $mod
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+
+# bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
+bindsym $mod+d exec --no-startup-id rofi -show drun
+
+# bindsym $mod+F1 exec $term -e ranger
+bindsym $mod+F1 exec Thunar
+bindsym $mod+F2 exec firefox
+bindsym $mod+F3 exec firefox --private-window
+# bindsym $mod+F2 exec vivaldi
+# bindsym $mod+F3 exec vivaldi --incognito
+bindsym $mod+F4 exec code
+bindsym $mod+F5 exec flatpak run com.spotify.Client
+bindsym $mod+grave exec $term -e btm
+
+focus_follows_mouse yes
+bindsym Mod1+h focus left
+bindsym Mod1+j focus down
+bindsym Mod1+k focus up
+bindsym Mod1+l focus right
+
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# workspace_auto_back_and_forth yes
+bindsym Mod1+Tab workspace back_and_forth
+bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+
+bindsym XF86Forward workspace next
+bindsym XF86Back workspace prev
+
+bindsym $mod+Shift+minus move scratchpad
+
+bindsym $mod+minus scratchpad show
+
+bindsym $mod+Shift+h split h;
+bindsym $mod+Shift+v split v;
+bindsym $mod+q split toggle
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+Shift+space floating toggle; resize set 896 504
+
+# media buttons
+bindsym XF86AudioPlay  exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioStop  exec playerctl stop
+bindsym XF86AudioNext  exec playerctl next
+bindsym XF86AudioPrev  exec playerctl previous
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   -2%
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@   toggle
+bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessUp   exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
+
+bindsym $mod+a focus parent
+
+# Workspaces
+set $ws1 "1: term"
+set $ws2 "2: browser"
+set $ws3 "3: code"
+set $ws4 "4: games"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
+bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
+
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+
+# Open applications on specific workspaces
+assign [class="firefox"] $ws2
+assign [class="vivaldi"] $ws2
+
+# Open specific applications in floating mode
+for_window [title="pulsemixer"] floating enable; resize set 1000 250
+for_window [title="File Transfer*"] floating enable
+for_window [class="bleachbit"] floating enable
+for_window [class="Lxappearance"] floating enable; sticky enable
+for_window [class="qemu"] floating enable; border 2
+
+bindsym $mod+Shift+r reload
+
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'"
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+m bar mode toggle
+bar {
+    status_command i3status-rs $HOME/.config/i3status-rust/config.toml
+	swaybar_command swaybar
+	position top
+	font pango: Iosevka Semibold, FontAweseome 9
+	strip_workspace_numbers no
+
+    colors {
+	    background #161821
+	    statusline #c6c8d1
+	    separator  #c6c8d1
+
+#                           border  backgr. text
+	    focused_workspace   #161821 #c6c8d1 #161821
+	    active_workspace    #d2d4de #d2d4de #161821
+	    inactive_workspace  #161821 #161821 #d2d4de
+	    urgent_workspace    #b4be82 #b4be82 #161821
+    }
+}
+
+# class                 border  backgr. text    indic.   child_border
+client.focused          #556082 #556082 #d2d4de #84a0c6
+client.focused_inactive #262939 #262939 #c6c8d1 #454948
+client.unfocused        #262939 #262939 #c6c8d1 #454948
+client.urgent           #b4be82 #b4be82 #161821 #268BD2
+client.placeholder      #000000 #0c0c0c #c6c8d1 #000000
+
+client.background       #161821
+
+# scripts
+bindsym $mod+n      exec bash $HOME/scripts/vpn_dmenu
+bindsym XF86Launch1 exec bash $HOME/scripts/exit_dmenu
+
+include $HOME/.config/sway/input
+include $HOME/.config/sway/gaps
+
+# apply wallpaper
+output LVDS-1 bg $HOME/.wallpaper/1624249262605.jpg fill
+# screenshot tool
+bindsym $mod+Shift+S exec grimshot --notify copy area
+# clipboard manager
+exec wl-paste -t text --watch clipman store
+bindsym $mod+v exec clipman pick -t rofi
+# bluetooth manager
+bindsym $mod+b exec blueberry
+
