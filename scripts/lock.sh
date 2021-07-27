@@ -1,2 +1,12 @@
 #!/usr/bin/bash
-i3lock --clock --indicator --insidecolor=0f1117FF --ringcolor=c6c8d1FF --line-uses-inside --keyhlcolor=84a0c6FF --bshlcolor=e27878FF --insidevercolor=c6c8d1FF --insidewrongcolor=e27878FF --ringvercolor=84a0c6FF --ringwrongcolor=e27878FF --separatorcolor=c6c8d1FF --verifcolor=c6c8d1FF --wrongcolor=c6c8d1FF --timecolor=c6c8d1FF --datecolor=d2d4deFF --color=161821FF --timestr="%H:%M" --datestr="%a, %b, %d"
+i3lock --clock --indicator --line-uses-inside \
+    --ignore-empty-password \
+    --ring-width=10 \
+    --image=/home/gkeep/.wallpaper/liquid_dark.png --fill \
+    --ring-color=dcdfe7FF --inside-color=33374cBF \
+    --keyhl-color=2d539eFF --bshl-color=cc517aFF \
+    --insidever-color=dcdfe7FF --insidewrong-color=cc517aFF \
+    --ringver-color=2d539eFF --ringwrong-color=cc517aFF \
+    --separator-color=dcdfe7FF --verif-color=dcdfe7FF --wrong-color=dcdfe7FF \
+    --time-color=dcdfe7FF --date-color=dcdfe7FF \
+    --time-str="%H:%M" --date-str="%a, %b %d"

@@ -1,6 +1,7 @@
-[user]
-    name = gkeep
-    email = gkeep77@protonmail.com
+[include]
+    path = ~/.gitcredentials
+[core]
+    editor="nvim"
 [init]
     defaultBranch = main
 [alias]
@@ -11,3 +12,7 @@
     lg  = log -p
     ap  = add --patch
     dfh = diff HEAD
+[credential]
+	helper = store
+[pull]
+    rebase = true

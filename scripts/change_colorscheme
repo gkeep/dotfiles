@@ -3,20 +3,26 @@
 colorscheme=$1
 
 if [[ $colorscheme = 'dark' ]]; then
-    # change kitty theme
-    cat ~/.config/kitty/themes/iceberg_dark.conf > ~/.config/kitty/colors.conf
-    # change neovim theme
-    sed -i 's/background=light/background=dark/g' ~/.config/nvim/init.vim
+    # # change kitty theme
+    # cat ~/.config/kitty/themes/iceberg_dark.conf > ~/.config/kitty/colors.conf
+    # # change neovim theme
+    # sed -i 's/background=light/background=dark/g' ~/.config/nvim/init.vim
     # change gtk theme
-    sed -i 's/Arc-Lighter/Iceberg/g' ~/.config/gtk-3.0/settings.ini
+    sed -i 's/prefer-dark-theme=false/prefer-dark-theme=true/g' ~/.config/gtk-3.0/settings.ini
+    sed -n '2,3 s/-Light/-Dark/g' ~/.config/gtk-3.0/settings.ini
 elif [[ $colorscheme = 'light' ]]; then
-    # change kitty theme
-    cat ~/.config/kitty/themes/iceberg_light.conf > ~/.config/kitty/colors.conf
-    # change neovim theme
-    sed -i 's/background=dark/background=light/g' ~/.config/nvim/init.vim
+    # # change kitty theme
+    # cat ~/.config/kitty/themes/iceberg_light.conf > ~/.config/kitty/colors.conf
+    # # change neovim theme
+    # sed -i 's/background=dark/background=light/g' ~/.config/nvim/init.vim
     # change gtk theme
-    sed -i 's/Iceberg/Arc-Lighter/g' ~/.config/gtk-3.0/settings.ini
+    sed -i 's/prefer-dark-theme=true/prefer-dark-theme=false/g' ~/.config/gtk-3.0/settings.ini
+    sed -n '2,3 s/-Dark/-Light/g' ~/.config/gtk-3.0/settings.ini
 fi
 
+msg="Changed colorscheme to $colorscheme"
+notify-send "$msg" --expire-time=5000
+printf "$msg\n"
+
 # reload kitty colorscheme
-kitty @ set-colors --all ~/.config/kitty/colors.conf
+# kitty @ set-colors --all ~/.config/kitty/colors.conf
