@@ -1,0 +1,42 @@
+#!/bin/bash
+# Dmenu script to control VPN.
+
+#menu='dmenu'
+menu='rofi -dmenu -no-show-icons'
+
+function nordvpn_connect {
+    output=$(printf "connect\nconnect to server\ndisconnect" | $menu -i -p "NORDVPN")
+    case "$output" in
+        connect)
+            nordvpn connect
+        ;;
+        'connect to server')
+            select_server=$(printf "Albania\nAgrentina\nAustralia\nAustria\nBelgium\nBrazil\nBulgaria\nCanada\nChile\nCosta_Rica\nCroatia\nCyprus\nCzech_Republic\nDenmark\nEstonia\nFinland\nFrance\nGeorgia\nGermany\nGreece\nHonk_Kong\nHungary\nIceland\nIndia\nIndonesia\nIreland\nIsreal\nItaly\nJapan\nLatvia\nLuxembourg\nMalaysia\nMexico\nMoldova\nNetherlands\nNew_Zealand\nNorth_Macedonia\nNorway\nPoland\nPortugal\nRomania\nSerbia\nSingapore\nSlovakia\nSlovenia\nSouth_Africa\nSouth_Korea\nSpain\nSweden\nSwitzerland\nTaiwan\nThailand\nTurkey\nUkraine\nUnited_Kingdom\nUnited_States\nVietnam" | $menu -i -p "Select a server" )
+            nordvpn connect $select_server
+        ;;
+        disconnect)
+            nordvpn disconnect
+        ;;
+    esac
+}
+
+function main {
+    main_output=$(printf "connect\nnordvpn\ndisconnect" | $menu -i -p "VPN")
+    case "$main_output" in
+        connect)
+            notify-send "Swipe your finger across the fingerprint reader" --expire-time=2000
+            wg-quick up wg0
+        ;;
+        disconnect)
+            notify-send "Swipe your finger across the fingerprint reader" --expire-time=2000
+            wg-quick down wg0
+        ;;
+        nordvpn)
+            nordvpn_connect
+        ;;
+    esac
+}
+
+main
+
+# vim: ft=bash
