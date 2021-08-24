@@ -13,6 +13,6 @@
     ap  = add --patch
     dfh = diff HEAD
 [credential]
-	helper = store
+	helper = /usr/lib/git-core/git-credential-libsecret
 [pull]
     rebase = true

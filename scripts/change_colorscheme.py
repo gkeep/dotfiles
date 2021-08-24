@@ -19,6 +19,7 @@ import sys
 import subprocess
 
 USER = os.getlogin()
+DISABLE = False
 
 CONFIG = {
     "gtk": True,
@@ -29,15 +30,18 @@ CONFIG = {
 GTK_SETTINGS = f"/home/{USER}/.config/gtk-3.0/settings.ini"
 
 
-def get_current_colorscheme() -> str:
+def get_current_colorscheme(return_true_val=False) -> str:
     with open(GTK_SETTINGS) as file:
         for line in file:
             if line.startswith("gtk-application-prefer-dark-theme"):
                 is_dark = line.split("=")[1].strip()
 
-    if is_dark == "true":
+    if return_true_val:
+        return is_dark
+
+    if is_dark in ["1", "true"]:
         return "dark"
-    elif is_dark == "false":
+    elif is_dark in ["0", "false"]:
         return "light"
 
 
@@ -53,16 +57,16 @@ def change_theme(_type, to_light=True):
             inp_file = f"/home/{USER}/.config/nvim/init.vim"
             option = "background"
 
-    if to_light:
-        if _type == "icons":
-            params = ["Dark", "Light"]
+    if _type == "icons":
+        params = ["Dark", "Light"]
+    elif _type == "gtk":
+        if get_current_colorscheme(return_true_val=True):
+            params = ["1", "0"]
         else:
             params = ["true", "false"]
-    else:
-        if _type == "icons":
-            params = ["Light", "Dark"]
-        else:
-            params = ["false", "true"]
+
+    if not to_light:
+        params.reverse()
 
     lines = []
     with open(inp_file, "r") as in_file:
@@ -79,6 +83,14 @@ def change_theme(_type, to_light=True):
 
 
 def main():
+    if DISABLE:
+        return
+
+    session = os.getenv("DESKTOP_SESSION")
+
+    if session not in ["sway", "i3", "bspwm"]:
+        return
+
     current_colorscheme = get_current_colorscheme()
     colorscheme = sys.argv[1]
     print("\t{} -> {}".format(current_colorscheme, colorscheme))
