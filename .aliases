@@ -5,3 +5,5 @@ alias cat="bat"
 
 alias refresh-mirrors="reflector --verbose --latest 5 --country 'Russia' --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 
+alias userspace-reboot="sudo systemctl isolate rescue; sudo systemctl isolate default"
+

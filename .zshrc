@@ -1,7 +1,6 @@
 source ~/.config/zsh/plugins/zsh-snap/znap.zsh
 source $HOME/.config/zsh/history.zsh
 
-# export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>\/'
 export WORDCHARS='~!#$%^&*(){}[]<>?.+;-'
 export MOTION_WORDCHARS='~!#$%^&*(){}[]<>?.+;-/'
 
@@ -11,10 +10,11 @@ zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:
 source $HOME/.aliases
 
 # load starship
-eval "$(starship init zsh)"
-autoload -U compinit && compinit
+source $HOME/.config/zsh/prompt.zsh
 
-# load znap
+if [ -f $HOME/.profile ]; then
+    . $HOME/.profile
+fi
 
 # load zsh keybinds
 source $HOME/.config/zsh/keybindings.zsh
