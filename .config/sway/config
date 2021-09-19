@@ -5,7 +5,7 @@ set $term alacritty
 default_border pixel 2
 default_floating_border pixel 2
 
-# smart_borders on
+smart_borders on
 include $HOME/.config/sway/autostart
 
 hide_edge_borders none
@@ -15,57 +15,66 @@ font pango:Iosevka Semibold 10
 
 floating_modifier $mod
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # bindsym $mod+d exec --no-startup-id dmenu_run -i -p "RUN:"
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+Slash exec --no-startup-id rofi -show drun
 
 # bindsym $mod+F1 exec $term -e ranger
-bindsym $mod+F1 exec Thunar
-bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec firefox --private-window
-# bindsym $mod+F2 exec vivaldi
-# bindsym $mod+F3 exec vivaldi --incognito
+bindsym $mod+F1 exec nautilus
+# bindsym $mod+F2 exec firefox
+# bindsym $mod+F3 exec firefox --private-window
+bindsym $mod+F2 exec flatpak run com.github.Eloston.UngoogledChromium
+bindsym $mod+F3 exec flatpak run com.github.Eloston.UngoogledChromium --incognito
 bindsym $mod+F4 exec code
 bindsym $mod+F5 exec flatpak run com.spotify.Client
 bindsym $mod+grave exec $term -e btm
 
 focus_follows_mouse yes
-bindsym Mod1+h focus left
-bindsym Mod1+j focus down
-bindsym Mod1+k focus up
-bindsym Mod1+l focus right
-
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
 
 # workspace_auto_back_and_forth yes
 bindsym Mod1+Tab workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 bindsym XF86Forward workspace next
 bindsym XF86Back workspace prev
 
-bindsym $mod+Shift+minus move scratchpad
+bindsym --to-code {
+    Mod1+h focus left
+    Mod1+j focus down
+    Mod1+k focus up
+    Mod1+l focus right
 
-bindsym $mod+minus scratchpad show
+    $mod+Shift+j move left
+    $mod+Shift+k move down
+    $mod+Shift+l move up
+    $mod+Shift+semicolon move right
 
-bindsym $mod+Shift+h split h;
-bindsym $mod+Shift+v split v;
-bindsym $mod+q split toggle
+    $mod+Shift+Left move left
+    $mod+Shift+Down move down
+    $mod+Shift+Up move up
+    $mod+Shift+Right move right
 
-bindsym $mod+f fullscreen toggle
+    $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+    $mod+Shift+minus move scratchpad
+
+    $mod+minus scratchpad show
+
+    $mod+Shift+h split h;
+    $mod+Shift+v split v;
+    $mod+Shift+q split toggle
+
+    $mod+m fullscreen toggle
+
+    $mod+s layout stacking
+    $mod+w layout tabbed
+    $mod+e layout toggle split
+
+    $mod+L exec swaylock -f
+
+    $mod+Shift+r reload
+    $mod+Shift+e exec "swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'"
+}
 
 bindsym $mod+Shift+space floating toggle; resize set 896 504
 
@@ -79,21 +88,30 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   -2%
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@   toggle
 bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessUp   exec light -A 10
-bindsym XF86MonBrightnessDown exec light -U 10
+
+bindsym XF86MonBrightnessUp   exec light -T 1.4
+bindsym XF86MonBrightnessDown exec light -T 0.72
+
+bindsym XF86ScreenSaver exec swaylock -f
+
+bindsym XF86TouchpadToggle exec swaymsg input type:touchpad events toggle enabled disabled
+
+# set minimum brightness
+exec_always --no-startup-id light -N 0.72
 
 bindsym $mod+a focus parent
 
 # Workspaces
-set $ws1 "1: term"
-set $ws2 "2: browser"
-set $ws3 "3: code"
-set $ws4 "4: games"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
+set $ws1  "1:I"
+set $ws2  "2:II"
+set $ws3  "3:III"
+set $ws4  "4:IV"
+set $ws5  "5:V"
+set $ws6  "6:VI"
+set $ws7  "7:VII"
+set $ws8  "8:VIII"
+set $ws9  "9:IX"
+set $ws10 "10:X"
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -104,6 +122,7 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 bindsym $mod+Ctrl+1 move container to workspace $ws1
 bindsym $mod+Ctrl+2 move container to workspace $ws2
@@ -114,16 +133,18 @@ bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
 bindsym $mod+Ctrl+9 move container to workspace $ws9
+bindsym $mod+Ctrl+0 move container to workspace $ws10
 
-bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+1 move container to workspace $ws1;  workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2;  workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3;  workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4;  workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5;  workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6;  workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7;  workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8;  workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9;  workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Open applications on specific workspaces
 assign [class="firefox"] $ws2
@@ -136,9 +157,6 @@ for_window [class="bleachbit"] floating enable
 for_window [class="Lxappearance"] floating enable; sticky enable
 for_window [class="qemu"] floating enable; border 2
 
-bindsym $mod+Shift+r reload
-
-bindsym $mod+Shift+e exec "swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'"
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -156,13 +174,14 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+m bar mode toggle
+# bindsym $mod+m bar mode toggle
 bar {
     status_command i3status-rs $HOME/.config/i3status-rust/config.toml
 	swaybar_command swaybar
 	position top
-	font pango: Iosevka Semibold, FontAweseome 9
-	strip_workspace_numbers no
+	font pango: Iosevka Semibold 9
+    height 25
+	strip_workspace_numbers yes
 
     colors {
 	    background #161821
@@ -187,19 +206,19 @@ client.placeholder      #000000 #0c0c0c #c6c8d1 #000000
 client.background       #161821
 
 # scripts
-bindsym $mod+n      exec bash $HOME/scripts/vpn_dmenu
-bindsym XF86Launch1 exec bash $HOME/scripts/exit_dmenu
+bindsym --to-code $mod+n      exec bash $HOME/scripts/vpn_dmenu
+bindsym           XF86Launch1 exec bash $HOME/scripts/exit_dmenu
 
 include $HOME/.config/sway/input
 include $HOME/.config/sway/gaps
 
 # apply wallpaper
-output LVDS-1 bg $HOME/.wallpaper/1624249262605.jpg fill
+output LVDS-1 bg $HOME/.wallpaper/Aenami/1628134847230.jpg fill
 # screenshot tool
-bindsym $mod+Shift+S exec grimshot --notify copy area
+bindsym --to-code $mod+Shift+S exec grimshot --notify copy area
 # clipboard manager
 exec wl-paste -t text --watch clipman store
 bindsym $mod+v exec clipman pick -t rofi
 # bluetooth manager
-bindsym $mod+b exec blueberry
+bindsym --to-code $mod+b exec blueberry
 

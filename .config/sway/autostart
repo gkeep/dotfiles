@@ -1,5 +1,7 @@
 # load system variables
-exec_always systemctl --user import-environment DISPLAY WAYLAND_DISPLAY; systemctl --user start graphical-session.target
+# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway; systemctl --user start graphical-session.target
+# exec_always systemctl --user import-environment
+exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
 
 # automatically lock and suspend
 exec swayidle -w \
@@ -8,11 +10,12 @@ exec swayidle -w \
     before-sleep 'swaylock -f'
 
 # fix gtk's shit on wayland
-set $gnome-schema org.gnome.desktop.interface
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Arc'
-    gsettings set $gnome-schema icon-theme 'Papirus'
-    gsettings set $gnome-schema font-name 'Noto Sans 10'
-}
+exec_always $HOME/scripts/import-gsettings
+# set $gnome-schema org.gnome.desktop.interface
+# exec_always {
+#     gsettings set $gnome-schema gtk-theme 'Arc'
+#     gsettings set $gnome-schema icon-theme 'Numix'
+#     gsettings set $gnome-schema font-name 'Droid Sans 10'
+# }
 
 # vim: ft=i3config

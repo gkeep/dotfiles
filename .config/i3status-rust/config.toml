@@ -8,17 +8,17 @@ name = "none"
 block = "battery"
 interval = 5
 # format = "{percentage} {power} {time}H"
-format = "{percentage} {time}H"
+# format = "{percentage} {time}H"
 
 [[block]]
 block = "networkmanager"
 on_click = "st -e iwctl"
-ap_format = "{ssid^10} ({strength})"
+ap_format = "{ssid} ({strength})"
 device_format = "{icon}{ap}"
 
 [[block]]
 block = "memory"
-format_mem = "{mem_used}/{mem_total}"
+format_mem = "{mem_used}"
 interval = 1
 
 [[block]]
@@ -26,8 +26,8 @@ block = "backlight"
 
 [[block]]
 block = "cpu"
-interval = 1
-format = "{utilization} {frequency}"
+interval = 2
+format = "{utilization}"
 
 [[block]]
 block = "temperature"
@@ -44,5 +44,6 @@ show_volume_when_muted = true
 [[block]]
 block = "time"
 interval = 1
-format = "%a, %b %d %H:%M"
+# format = "%a, %b %d %H:%M"
+format = "%a %H:%M"
 

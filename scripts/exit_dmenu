@@ -1,13 +1,11 @@
 #!/bin/bash
 # Dmenu shutdown/lock/suspend/reboot menu.
-#menu='dmenu'
 menu='rofi -dmenu --no-show-icons'
-output=$(printf "lock\nsuspend\nshutdown\nlogout" | $menu -p "ACTION")
+output=$(printf "lock\nsuspend\nshutdown\nreboot\nlogout" | $menu -p "ACTION")
 
 case "$output" in
     logout)
-        # i3-msg exit
-        swaymsg exit
+        bspc quit
     ;;
     shutdown)
         shutdown -h now
@@ -16,7 +14,9 @@ case "$output" in
         systemctl suspend
     ;;
     lock)
-        # /home/gkeep/scripts/lock.sh
-        swaylock -f
+        slock
+    ;;
+    reboot)
+        reboot
     ;;
 esac

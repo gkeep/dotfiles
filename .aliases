@@ -3,7 +3,8 @@ alias lg="lazygit"
 alias ls="exa"
 alias cat="bat"
 
-alias refresh-mirrors="reflector --verbose --latest 5 --country 'Russia' --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
+alias wake_rannoch="wol 'a8:a1:59:19:68:63'"
 
 alias userspace-reboot="sudo systemctl isolate rescue; sudo systemctl isolate default"
 
+alias xev-code="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"

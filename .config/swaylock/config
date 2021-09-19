@@ -1,9 +1,12 @@
 ignore-empty-password
 line-uses-inside
-image=/home/gkeep/.wallpaper/1624249262605.jpg
-scaling=fill
+color=161821CC
+
 disable-caps-lock-text
 indicator-idle-visible
+
+indicator-radius=65
+indicator-thickness=15
 
 ring-color=dcdfe7FF
 inside-color=33374cFF

@@ -22,19 +22,14 @@ export STEAMGAMES="/home/gkeep/Games/Steam/steamapps/common"
 # wayland
 # GDK_BACKEND="wayland"
 # native firefox on wayland
-export MOZ_ENABLE_WAYLAND=1
+# export MOZ_ENABLE_WAYLAND=1
 
 # gpg key
 export GPG_TTY=$(tty)
 
-case "$DESKTOP_SESSION" in
-    i3)
-        export $(gnome-keyring-daemon --start)
-        ;;
-    sway)
-        export $(gnome-keyring-daemon --start)
-        ;;
-    bspwm)
-        export $(gnome-keyring-daemon --start)
-        ;;
-esac
+# use rofi in clipmenu
+CM_LAUNCHER=rofi
+
+if [[ -n $DESKTOP_SESSION ]]; then
+    export $(gnome-keyring-daemon --start)
+fi

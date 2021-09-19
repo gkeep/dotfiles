@@ -41,7 +41,7 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 " remember folds when after exiting
 augroup remember_folds
   autocmd!
-  autocmd BufWinLeave * mkview
+  autocmd VimLeavePre * mkview
   autocmd BufWinEnter * silent! loadview
 augroup END
 

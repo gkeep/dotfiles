@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+setxkbmap -option 'grp:caps_toggle' &
+
+bspc config top_padding 30
+
+bspc config border_width         2
+bspc config window_gap           2
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc config focus_follows_pointer true
+
+bspc rule -a Plank layer=above manage=on border=off
+
+bspc monitor -d I II III IV V

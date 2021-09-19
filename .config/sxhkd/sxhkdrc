@@ -1,3 +1,6 @@
+# vim:ft=sxhkd
+
+#
 #
 # wm independent hotkeys
 #
@@ -20,20 +23,16 @@ super + Escape
 
 super + F1
     nautilus
-super + F2
+super + b
     flatpak run com.github.Eloston.UngoogledChromium
 super + F3
     flatpak run com.github.Eloston.UngoogledChromium --incognito
-super + F4
-    code
-super + F5
-    flatpak run com.spotify.Client
 super + grave
     alacritty -e btm
 
 super + v
     clipmenu
-Print
+super + shift + s
     flameshot gui
 
 super + n
@@ -71,11 +70,21 @@ XF86MonBrightnessDown
     light -T 0.72
 
 XF86ScreenSaver
-    slock
+    xflock4
+
+# XF86WakeUp
+# 	xfce4-power-manager-settings
+
+XF86TouchpadToggle
+	$HOME/.local/bin/toggle_touchpad.sh
 
 #
 # bspwm hotkeys
 #
+
+# task manager
+Shift + Ctrl + Escape
+	xfce4-taskmanager
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -101,7 +110,7 @@ super + g
     bspc desktop -f {prev,next}
 
 alt + Tab
-    bspc desktop -f last
+    rofi -show window
 
 #
 # state/flags
@@ -122,10 +131,6 @@ super + ctrl + {m,x,y,z}
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
-
-# focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c

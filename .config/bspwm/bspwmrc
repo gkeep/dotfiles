@@ -7,14 +7,14 @@ unclutter --timeout 10 &
 clipmenud &
 xss-lock -- slock &
 xautolock -time 5 -locker slock &
-setxkbmap -option 'caps:backspace' &
+setxkbmap -option 'grp:caps_toggle' &
 $HOME/.fehbg &
 picom --config $HOME/.config/picom/picom.conf &
 
 xfsettingsd &
 xfce4-power-manager --daemon &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d I II III IV V
 
 bspc config border_width         2
 bspc config window_gap           2
@@ -25,4 +25,3 @@ bspc config gapless_monocle      true
 
 bspc config focus_follows_pointer true
 
-bspc rule -a chromium-browser desktop='^2'

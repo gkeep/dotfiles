@@ -46,6 +46,7 @@ call plug#begin('$HOME/.local/share/nvim/site/autoload')
     " syntax highlighting
     Plug 'mboughaba/i3config.vim'
     Plug 'ap/vim-css-color'
+    Plug 'kovetskiy/sxhkd-vim'
 
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-commentary'
@@ -96,8 +97,5 @@ let g:SimpylFold_docstring_preview = 1
 " cv paste
 noremap <Leader>y "*y
 noremap <Leader>p "*p
-noremap <Leader>Y "+y
-noremap <Leader>P "+p
-
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
