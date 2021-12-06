@@ -1,5 +1,5 @@
 [include]
-    path = ~/.gitcredentials
+    path = ~/.git-credentials
 [core]
     editor="nvim"
 [init]
@@ -16,3 +16,5 @@
 	helper = /usr/lib/git-core/git-credential-libsecret
 [pull]
     rebase = true
+[commit]
+	gpgsign = true
