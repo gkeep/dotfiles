@@ -1,9 +1,6 @@
 [include]
-    path = ~/.git-credentials
-[core]
-    editor="nvim"
-[init]
-    defaultBranch = main
+    path = ~/.git-user
+
 [alias]
     st  = status
     ci  = commit --verbose
@@ -12,9 +9,28 @@
     lg  = log -p
     ap  = add --patch
     dfh = diff HEAD
-[credential]
-	helper = /usr/lib/git-core/git-credential-libsecret
+    dft = difftool
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
 [pull]
-    rebase = true
+	rebase = true
 [commit]
 	gpgsign = true
+[credential]
+	helper = store
+[core]
+	autocrlf = false
+
+[diff]
+	external = difft
+    tool = difftastic
+[difftool]
+    prompt = false
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+    difftool = true
